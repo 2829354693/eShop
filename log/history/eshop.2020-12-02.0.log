@@ -1,0 +1,291 @@
+2020-12-02 10:59:56 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 6.1.5.Final
+2020-12-02 10:59:56 [restartedMain] INFO  com.yc.eshop.EshopApplication - Starting EshopApplication on SC-202009071129 with PID 8696 (E:\JavaProject\eshop\build\classes\java\main started by Administrator in E:\JavaProject\eshop)
+2020-12-02 10:59:56 [restartedMain] INFO  com.yc.eshop.EshopApplication - The following profiles are active: dev
+2020-12-02 10:59:56 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-12-02 10:59:56 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-12-02 10:59:57 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2020-12-02 10:59:57 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 18ms. Found 0 JDBC repository interfaces.
+2020-12-02 10:59:58 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2020-12-02 10:59:58 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2020-12-02 10:59:58 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-12-02 10:59:58 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.38]
+2020-12-02 10:59:59 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-12-02 10:59:59 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2254 ms
+2020-12-02 11:00:00 [restartedMain] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-02 11:00:00 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-12-02 11:00:00 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2020-12-02 11:00:00 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2020-12-02 11:00:00 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2020-12-02 11:00:00 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-02 11:00:00 [restartedMain] INFO  com.yc.eshop.EshopApplication - Started EshopApplication in 4.565 seconds (JVM running for 5.502)
+2020-12-02 11:27:53 [http-nio-8080-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-12-02 11:27:53 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2020-12-02 11:27:53 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 30 ms
+2020-12-02 11:28:51 [http-nio-8080-exec-3] WARN  org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public com.yc.eshop.common.response.ApiResponse<java.lang.Void> com.yc.eshop.user.controller.UserController.register(com.yc.eshop.common.entity.User): [Field error in object 'user' on field 'account': rejected value [12300000]; codes [Pattern.user.account,Pattern.account,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.account,account]; arguments []; default message [account],[Ljavax.validation.constraints.Pattern$Flag;@2e16b7d9,^1\d{10}]; default message [请输入正确的手机号]] ]
+2020-12-02 11:29:10 [http-nio-8080-exec-4] WARN  org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public com.yc.eshop.common.response.ApiResponse<java.lang.Void> com.yc.eshop.user.controller.UserController.register(com.yc.eshop.common.entity.User): [Field error in object 'user' on field 'account': rejected value [12300000]; codes [Pattern.user.account,Pattern.account,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.account,account]; arguments []; default message [account],[Ljavax.validation.constraints.Pattern$Flag;@2e16b7d9,^1\d{10}]; default message [请输入正确的手机号]] ]
+2020-12-02 11:33:14 [http-nio-8080-exec-5] WARN  org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public com.yc.eshop.common.response.ApiResponse<java.lang.Void> com.yc.eshop.user.controller.UserController.register(com.yc.eshop.common.entity.User): [Field error in object 'user' on field 'account': rejected value [123213]; codes [Pattern.user.account,Pattern.account,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.account,account]; arguments []; default message [account],[Ljavax.validation.constraints.Pattern$Flag;@2e16b7d9,^1\d{10}]; default message [请输入正确的手机号]] ]
+2020-12-02 11:34:06 [http-nio-8080-exec-6] WARN  org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public com.yc.eshop.common.response.ApiResponse<java.lang.Void> com.yc.eshop.user.controller.UserController.register(com.yc.eshop.common.entity.User): [Field error in object 'user' on field 'account': rejected value [123232]; codes [Pattern.user.account,Pattern.account,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.account,account]; arguments []; default message [account],[Ljavax.validation.constraints.Pattern$Flag;@2e16b7d9,^1\d{10}]; default message [请输入正确的手机号]] ]
+2020-12-02 11:36:39 [http-nio-8080-exec-7] WARN  org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public com.yc.eshop.common.response.ApiResponse<java.lang.Void> com.yc.eshop.user.controller.UserController.register(com.yc.eshop.common.entity.User): [Field error in object 'user' on field 'account': rejected value [15535]; codes [Pattern.user.account,Pattern.account,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.account,account]; arguments []; default message [account],[Ljavax.validation.constraints.Pattern$Flag;@2e16b7d9,^1\d{10}]; default message [请输入正确的手机号]] ]
+2020-12-02 11:38:56 [http-nio-8080-exec-8] WARN  org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public com.yc.eshop.common.response.ApiResponse<java.lang.Void> com.yc.eshop.user.controller.UserController.register(com.yc.eshop.common.entity.User): [Field error in object 'user' on field 'account': rejected value [12322]; codes [Pattern.user.account,Pattern.account,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.account,account]; arguments []; default message [account],[Ljavax.validation.constraints.Pattern$Flag;@2e16b7d9,^1\d{10}]; default message [请输入正确的手机号]] ]
+2020-12-02 14:56:48 [Thread-9] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-02 14:56:48 [Thread-9] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2020-12-02 14:56:48 [Thread-9] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2020-12-02 14:56:49 [restartedMain] INFO  com.yc.eshop.EshopApplication - Starting EshopApplication on SC-202009071129 with PID 8696 (E:\JavaProject\eshop\build\classes\java\main started by Administrator in E:\JavaProject\eshop)
+2020-12-02 14:56:49 [restartedMain] INFO  com.yc.eshop.EshopApplication - The following profiles are active: dev
+2020-12-02 14:56:50 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2020-12-02 14:56:50 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 5ms. Found 0 JDBC repository interfaces.
+2020-12-02 14:56:50 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2020-12-02 14:56:50 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2020-12-02 14:56:50 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-12-02 14:56:50 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.38]
+2020-12-02 14:56:50 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-12-02 14:56:50 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 760 ms
+2020-12-02 14:56:50 [restartedMain] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-02 14:56:50 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-12-02 14:56:50 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2020-12-02 14:56:50 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2020-12-02 14:56:50 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2020-12-02 14:56:50 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-02 14:56:50 [restartedMain] INFO  com.yc.eshop.EshopApplication - Started EshopApplication in 1.359 seconds (JVM running for 14215.423)
+2020-12-02 14:56:50 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2020-12-02 14:56:55 [Thread-19] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-02 14:56:55 [Thread-19] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2020-12-02 14:56:55 [Thread-19] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2020-12-02 14:56:56 [restartedMain] INFO  com.yc.eshop.EshopApplication - Starting EshopApplication on SC-202009071129 with PID 8696 (E:\JavaProject\eshop\build\classes\java\main started by Administrator in E:\JavaProject\eshop)
+2020-12-02 14:56:56 [restartedMain] INFO  com.yc.eshop.EshopApplication - The following profiles are active: dev
+2020-12-02 14:56:56 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2020-12-02 14:56:56 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 4ms. Found 0 JDBC repository interfaces.
+2020-12-02 14:56:56 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2020-12-02 14:56:56 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2020-12-02 14:56:56 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-12-02 14:56:56 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.38]
+2020-12-02 14:56:56 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-12-02 14:56:56 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 530 ms
+2020-12-02 14:56:56 [restartedMain] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-02 14:56:56 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-12-02 14:56:56 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+2020-12-02 14:56:57 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+2020-12-02 14:56:57 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2020-12-02 14:56:57 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-02 14:56:57 [restartedMain] INFO  com.yc.eshop.EshopApplication - Started EshopApplication in 1.057 seconds (JVM running for 14221.656)
+2020-12-02 14:56:57 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2020-12-02 15:01:40 [Thread-24] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-02 15:01:40 [Thread-24] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+2020-12-02 15:01:41 [Thread-24] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
+2020-12-02 15:01:41 [restartedMain] INFO  com.yc.eshop.EshopApplication - Starting EshopApplication on SC-202009071129 with PID 8696 (E:\JavaProject\eshop\build\classes\java\main started by Administrator in E:\JavaProject\eshop)
+2020-12-02 15:01:41 [restartedMain] INFO  com.yc.eshop.EshopApplication - The following profiles are active: dev
+2020-12-02 15:01:41 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2020-12-02 15:01:41 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 5ms. Found 0 JDBC repository interfaces.
+2020-12-02 15:01:41 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2020-12-02 15:01:41 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2020-12-02 15:01:41 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-12-02 15:01:41 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.38]
+2020-12-02 15:01:42 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-12-02 15:01:42 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 669 ms
+2020-12-02 15:01:42 [restartedMain] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-02 15:01:42 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-12-02 15:01:42 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Starting...
+2020-12-02 15:01:42 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Start completed.
+2020-12-02 15:01:42 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2020-12-02 15:01:42 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-02 15:01:42 [restartedMain] INFO  com.yc.eshop.EshopApplication - Started EshopApplication in 1.177 seconds (JVM running for 14507.039)
+2020-12-02 15:01:42 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2020-12-02 15:11:42 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 6.1.5.Final
+2020-12-02 15:11:42 [restartedMain] INFO  com.yc.eshop.EshopApplication - Starting EshopApplication on SC-202009071129 with PID 2244 (E:\JavaProject\eshop\build\classes\java\main started by Administrator in E:\JavaProject\eshop)
+2020-12-02 15:11:42 [restartedMain] INFO  com.yc.eshop.EshopApplication - The following profiles are active: dev
+2020-12-02 15:11:42 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-12-02 15:11:42 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-12-02 15:11:42 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2020-12-02 15:11:42 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 11ms. Found 0 JDBC repository interfaces.
+2020-12-02 15:11:43 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2020-12-02 15:11:43 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2020-12-02 15:11:43 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-12-02 15:11:43 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.38]
+2020-12-02 15:11:43 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-12-02 15:11:43 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1600 ms
+2020-12-02 15:11:44 [restartedMain] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-02 15:11:44 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-12-02 15:11:45 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2020-12-02 15:11:45 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2020-12-02 15:11:45 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2020-12-02 15:11:45 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-02 15:11:45 [restartedMain] INFO  com.yc.eshop.EshopApplication - Started EshopApplication in 4.244 seconds (JVM running for 5.116)
+2020-12-02 15:32:23 [http-nio-8080-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-12-02 15:32:23 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2020-12-02 15:32:23 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 10 ms
+2020-12-02 15:32:23 [http-nio-8080-exec-1] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public com.yc.eshop.common.response.ApiResponse<java.lang.Void> com.yc.eshop.user.controller.UserController.register(com.yc.eshop.common.entity.User): [Field error in object 'user' on field 'account': rejected value [15656]; codes [Pattern.user.account,Pattern.account,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.account,account]; arguments []; default message [account],[Ljavax.validation.constraints.Pattern$Flag;@238a5417,^1\d{10}]; default message [请输入正确的手机号]] ]
+2020-12-02 15:35:27 [http-nio-8080-exec-2] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public com.yc.eshop.common.response.ApiResponse<java.lang.Void> com.yc.eshop.user.controller.UserController.register(com.yc.eshop.common.entity.User): [Field error in object 'user' on field 'account': rejected value [15656]; codes [Pattern.user.account,Pattern.account,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.account,account]; arguments []; default message [account],[Ljavax.validation.constraints.Pattern$Flag;@238a5417,^1\d{10}]; default message [请输入正确的手机号]] ]
+2020-12-02 15:43:06 [http-nio-8080-exec-10] WARN  org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unexpected character ('}' (code 125)): was expecting double-quote to start field name; nested exception is com.fasterxml.jackson.core.JsonParseException: Unexpected character ('}' (code 125)): was expecting double-quote to start field name
+ at [Source: (PushbackInputStream); line: 4, column: 2]]
+2020-12-02 15:44:00 [http-nio-8080-exec-1] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public com.yc.eshop.common.response.ApiResponse<java.lang.Void> com.yc.eshop.user.controller.UserController.register(com.yc.eshop.common.entity.User): [Field error in object 'user' on field 'account': rejected value [1232323]; codes [Pattern.user.account,Pattern.account,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.account,account]; arguments []; default message [account],[Ljavax.validation.constraints.Pattern$Flag;@238a5417,^1\d{10}]; default message [请输入正确的手机号]] ]
+2020-12-02 15:44:42 [http-nio-8080-exec-4] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public com.yc.eshop.common.response.ApiResponse<java.lang.Void> com.yc.eshop.user.controller.UserController.register(com.yc.eshop.common.entity.User): [Field error in object 'user' on field 'account': rejected value [1232323]; codes [Pattern.user.account,Pattern.account,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.account,account]; arguments []; default message [account],[Ljavax.validation.constraints.Pattern$Flag;@238a5417,^1\d{10}]; default message [请输入正确的手机号]] ]
+2020-12-02 15:46:58 [Thread-11] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-02 15:46:58 [Thread-11] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2020-12-02 15:46:58 [Thread-11] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2020-12-02 15:46:58 [restartedMain] INFO  com.yc.eshop.EshopApplication - Starting EshopApplication on SC-202009071129 with PID 2244 (E:\JavaProject\eshop\build\classes\java\main started by Administrator in E:\JavaProject\eshop)
+2020-12-02 15:46:58 [restartedMain] INFO  com.yc.eshop.EshopApplication - The following profiles are active: dev
+2020-12-02 15:46:59 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2020-12-02 15:46:59 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 5ms. Found 0 JDBC repository interfaces.
+2020-12-02 15:46:59 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2020-12-02 15:46:59 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2020-12-02 15:46:59 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-12-02 15:46:59 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.38]
+2020-12-02 15:46:59 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-12-02 15:46:59 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 710 ms
+2020-12-02 15:46:59 [restartedMain] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-02 15:46:59 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-12-02 15:46:59 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2020-12-02 15:46:59 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2020-12-02 15:46:59 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2020-12-02 15:46:59 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-02 15:46:59 [restartedMain] INFO  com.yc.eshop.EshopApplication - Started EshopApplication in 1.263 seconds (JVM running for 2119.061)
+2020-12-02 15:46:59 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2020-12-02 15:52:55 [Thread-21] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-02 15:52:55 [Thread-21] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2020-12-02 15:52:55 [Thread-21] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2020-12-02 15:52:56 [restartedMain] INFO  com.yc.eshop.EshopApplication - Starting EshopApplication on SC-202009071129 with PID 2244 (E:\JavaProject\eshop\build\classes\java\main started by Administrator in E:\JavaProject\eshop)
+2020-12-02 15:52:56 [restartedMain] INFO  com.yc.eshop.EshopApplication - The following profiles are active: dev
+2020-12-02 15:52:57 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2020-12-02 15:52:57 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 10ms. Found 0 JDBC repository interfaces.
+2020-12-02 15:52:57 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2020-12-02 15:52:57 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2020-12-02 15:52:57 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-12-02 15:52:57 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.38]
+2020-12-02 15:52:57 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-12-02 15:52:57 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1607 ms
+2020-12-02 15:52:57 [restartedMain] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-02 15:52:57 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-12-02 15:52:58 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+2020-12-02 15:52:58 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+2020-12-02 15:52:58 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2020-12-02 15:52:58 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-02 15:52:58 [restartedMain] INFO  com.yc.eshop.EshopApplication - Started EshopApplication in 2.443 seconds (JVM running for 2477.615)
+2020-12-02 15:52:58 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2020-12-02 16:08:24 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 6.1.5.Final
+2020-12-02 16:08:24 [restartedMain] INFO  com.yc.eshop.EshopApplication - Starting EshopApplication on SC-202009071129 with PID 10020 (E:\JavaProject\eshop\build\classes\java\main started by Administrator in E:\JavaProject\eshop)
+2020-12-02 16:08:24 [restartedMain] INFO  com.yc.eshop.EshopApplication - The following profiles are active: dev
+2020-12-02 16:08:24 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-12-02 16:08:24 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-12-02 16:08:25 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2020-12-02 16:08:25 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8ms. Found 0 JDBC repository interfaces.
+2020-12-02 16:08:25 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2020-12-02 16:08:25 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2020-12-02 16:08:25 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-12-02 16:08:25 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.38]
+2020-12-02 16:08:26 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-12-02 16:08:26 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1510 ms
+2020-12-02 16:08:27 [restartedMain] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-02 16:08:27 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-12-02 16:08:27 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2020-12-02 16:08:27 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2020-12-02 16:08:27 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2020-12-02 16:08:27 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-02 16:08:27 [restartedMain] INFO  com.yc.eshop.EshopApplication - Started EshopApplication in 3.733 seconds (JVM running for 5.574)
+2020-12-02 16:08:40 [http-nio-8080-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-12-02 16:08:40 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2020-12-02 16:08:40 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 10 ms
+2020-12-02 16:08:40 [http-nio-8080-exec-1] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public com.yc.eshop.common.response.ApiResponse<java.lang.Void> com.yc.eshop.user.controller.UserController.register(com.yc.eshop.common.entity.User): [Field error in object 'user' on field 'account': rejected value [1232323]; codes [Pattern.user.account,Pattern.account,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.account,account]; arguments []; default message [account],[Ljavax.validation.constraints.Pattern$Flag;@1fb6a79a,^1\d{10}]; default message [请输入正确的手机号]] ]
+2020-12-02 16:09:35 [http-nio-8080-exec-3] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public com.yc.eshop.common.response.ApiResponse<java.lang.Void> com.yc.eshop.user.controller.UserController.register(com.yc.eshop.common.entity.User): [Field error in object 'user' on field 'account': rejected value [1232323]; codes [Pattern.user.account,Pattern.account,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.account,account]; arguments []; default message [account],[Ljavax.validation.constraints.Pattern$Flag;@1fb6a79a,^1\d{10}]; default message [请输入正确的手机号]] ]
+2020-12-02 16:09:52 [http-nio-8080-exec-2] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public com.yc.eshop.common.response.ApiResponse<java.lang.Void> com.yc.eshop.user.controller.UserController.register(com.yc.eshop.common.entity.User): [Field error in object 'user' on field 'account': rejected value [1564456]; codes [Pattern.user.account,Pattern.account,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.account,account]; arguments []; default message [account],[Ljavax.validation.constraints.Pattern$Flag;@1fb6a79a,^1\d{10}]; default message [请输入正确的手机号]] ]
+2020-12-02 16:11:08 [http-nio-8080-exec-7] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public com.yc.eshop.common.response.ApiResponse<java.lang.Void> com.yc.eshop.user.controller.UserController.register(com.yc.eshop.common.entity.User): [Field error in object 'user' on field 'account': rejected value [1231]; codes [Pattern.user.account,Pattern.account,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.account,account]; arguments []; default message [account],[Ljavax.validation.constraints.Pattern$Flag;@1fb6a79a,^1\d{10}]; default message [请输入正确的手机号]] ]
+2020-12-02 16:13:29 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 6.1.5.Final
+2020-12-02 16:13:29 [restartedMain] INFO  com.yc.eshop.EshopApplication - Starting EshopApplication on SC-202009071129 with PID 3032 (E:\JavaProject\eshop\build\classes\java\main started by Administrator in E:\JavaProject\eshop)
+2020-12-02 16:13:29 [restartedMain] INFO  com.yc.eshop.EshopApplication - The following profiles are active: dev
+2020-12-02 16:13:29 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-12-02 16:13:29 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-12-02 16:13:30 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2020-12-02 16:13:30 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8ms. Found 0 JDBC repository interfaces.
+2020-12-02 16:13:30 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2020-12-02 16:13:30 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2020-12-02 16:13:30 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-12-02 16:13:30 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.38]
+2020-12-02 16:13:30 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-12-02 16:13:30 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1350 ms
+2020-12-02 16:13:31 [restartedMain] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-02 16:13:31 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-12-02 16:13:31 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2020-12-02 16:13:32 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2020-12-02 16:13:32 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2020-12-02 16:13:32 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-02 16:13:32 [restartedMain] INFO  com.yc.eshop.EshopApplication - Started EshopApplication in 3.546 seconds (JVM running for 4.371)
+2020-12-02 16:13:52 [http-nio-8080-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-12-02 16:13:52 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2020-12-02 16:13:52 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2020-12-02 16:13:52 [http-nio-8080-exec-1] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public com.yc.eshop.common.response.ApiResponse<java.lang.Void> com.yc.eshop.user.controller.UserController.register(com.yc.eshop.common.entity.User): [Field error in object 'user' on field 'account': rejected value [15345465]; codes [Pattern.user.account,Pattern.account,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.account,account]; arguments []; default message [account],[Ljavax.validation.constraints.Pattern$Flag;@6dc22c58,^1\d{10}]; default message [请输入正确的手机号]] ]
+2020-12-02 16:17:33 [http-nio-8080-exec-2] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public com.yc.eshop.common.response.ApiResponse<java.lang.Void> com.yc.eshop.user.controller.UserController.register(com.yc.eshop.common.entity.User): [Field error in object 'user' on field 'account': rejected value [153454]; codes [Pattern.user.account,Pattern.account,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.account,account]; arguments []; default message [account],[Ljavax.validation.constraints.Pattern$Flag;@6dc22c58,^1\d{10}]; default message [请输入正确的手机号]] ]
+2020-12-02 16:18:03 [http-nio-8080-exec-3] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public com.yc.eshop.common.response.ApiResponse<java.lang.Void> com.yc.eshop.user.controller.UserController.register(com.yc.eshop.common.entity.User): [Field error in object 'user' on field 'account': rejected value [153454]; codes [Pattern.user.account,Pattern.account,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.account,account]; arguments []; default message [account],[Ljavax.validation.constraints.Pattern$Flag;@6dc22c58,^1\d{10}]; default message [请输入正确的手机号]] ]
+2020-12-02 16:19:26 [http-nio-8080-exec-4] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public com.yc.eshop.common.response.ApiResponse<java.lang.Void> com.yc.eshop.user.controller.UserController.register(com.yc.eshop.common.entity.User): [Field error in object 'user' on field 'account': rejected value [12313]; codes [Pattern.user.account,Pattern.account,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.account,account]; arguments []; default message [account],[Ljavax.validation.constraints.Pattern$Flag;@6dc22c58,^1\d{10}]; default message [请输入正确的手机号]] ]
+2020-12-02 16:20:03 [http-nio-8080-exec-5] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public com.yc.eshop.common.response.ApiResponse<java.lang.Void> com.yc.eshop.user.controller.UserController.register(com.yc.eshop.common.entity.User): [Field error in object 'user' on field 'account': rejected value [15453445]; codes [Pattern.user.account,Pattern.account,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.account,account]; arguments []; default message [account],[Ljavax.validation.constraints.Pattern$Flag;@6dc22c58,^1\d{10}]; default message [请输入正确的手机号]] ]
+2020-12-02 16:21:19 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 6.1.5.Final
+2020-12-02 16:21:19 [restartedMain] INFO  com.yc.eshop.EshopApplication - Starting EshopApplication on SC-202009071129 with PID 11616 (E:\JavaProject\eshop\build\classes\java\main started by Administrator in E:\JavaProject\eshop)
+2020-12-02 16:21:19 [restartedMain] INFO  com.yc.eshop.EshopApplication - The following profiles are active: dev
+2020-12-02 16:21:19 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-12-02 16:21:19 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-12-02 16:21:20 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2020-12-02 16:21:20 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 10ms. Found 0 JDBC repository interfaces.
+2020-12-02 16:21:21 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2020-12-02 16:21:21 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2020-12-02 16:21:21 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-12-02 16:21:21 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.38]
+2020-12-02 16:21:21 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-12-02 16:21:21 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1610 ms
+2020-12-02 16:21:22 [restartedMain] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-02 16:21:22 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-12-02 16:21:22 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2020-12-02 16:21:23 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2020-12-02 16:21:23 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2020-12-02 16:21:23 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-02 16:21:23 [restartedMain] INFO  com.yc.eshop.EshopApplication - Started EshopApplication in 4.355 seconds (JVM running for 6.054)
+2020-12-02 16:21:51 [SpringContextShutdownHook] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-02 16:21:51 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2020-12-02 16:21:51 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2020-12-02 16:22:03 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 6.1.5.Final
+2020-12-02 16:22:03 [restartedMain] INFO  com.yc.eshop.EshopApplication - Starting EshopApplication on SC-202009071129 with PID 12392 (E:\JavaProject\eshop\build\classes\java\main started by Administrator in E:\JavaProject\eshop)
+2020-12-02 16:22:03 [restartedMain] INFO  com.yc.eshop.EshopApplication - The following profiles are active: dev
+2020-12-02 16:22:03 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-12-02 16:22:03 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-12-02 16:22:04 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2020-12-02 16:22:04 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 10ms. Found 0 JDBC repository interfaces.
+2020-12-02 16:22:05 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2020-12-02 16:22:05 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2020-12-02 16:22:05 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-12-02 16:22:05 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.38]
+2020-12-02 16:22:05 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-12-02 16:22:05 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1640 ms
+2020-12-02 16:22:06 [restartedMain] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-02 16:22:06 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-12-02 16:22:06 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2020-12-02 16:22:07 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2020-12-02 16:22:07 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2020-12-02 16:22:07 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-02 16:22:07 [restartedMain] INFO  com.yc.eshop.EshopApplication - Started EshopApplication in 4.719 seconds (JVM running for 5.731)
+2020-12-02 16:22:23 [http-nio-8080-exec-2] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-12-02 16:22:23 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2020-12-02 16:22:23 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2020-12-02 16:27:12 [Thread-12] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-02 16:27:12 [Thread-12] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2020-12-02 16:27:12 [Thread-12] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2020-12-02 16:27:13 [restartedMain] INFO  com.yc.eshop.EshopApplication - Starting EshopApplication on SC-202009071129 with PID 12392 (E:\JavaProject\eshop\build\classes\java\main started by Administrator in E:\JavaProject\eshop)
+2020-12-02 16:27:13 [restartedMain] INFO  com.yc.eshop.EshopApplication - The following profiles are active: dev
+2020-12-02 16:27:13 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2020-12-02 16:27:13 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 6ms. Found 0 JDBC repository interfaces.
+2020-12-02 16:27:13 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2020-12-02 16:27:13 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2020-12-02 16:27:13 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-12-02 16:27:13 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.38]
+2020-12-02 16:27:13 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-12-02 16:27:13 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 760 ms
+2020-12-02 16:27:14 [restartedMain] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-02 16:27:14 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-12-02 16:27:14 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2020-12-02 16:27:14 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2020-12-02 16:27:14 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2020-12-02 16:27:14 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-02 16:27:14 [restartedMain] INFO  com.yc.eshop.EshopApplication - Started EshopApplication in 1.37 seconds (JVM running for 312.153)
+2020-12-02 16:27:14 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2020-12-02 16:27:14 [http-nio-8080-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-12-02 16:27:14 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2020-12-02 16:27:14 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 10 ms
+2020-12-02 17:50:05 [SpringContextShutdownHook] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-02 17:50:05 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2020-12-02 17:50:05 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.

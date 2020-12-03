@@ -20,8 +20,8 @@ public enum ResponseCode {
     NOT_FOUND(404, "Not Found"),
     //方法不允许
     METHOD_NOT_ALLOWED(405, "Method Not Allowed"),
-    //用户名或密码错误
-    BAD_CREDENTIAL(406, "Bad Credential")
+    //服务器无法根据客户端请求的内容特性完成请求
+    NOT_ACCEPTABLE(406, "Not Acceptable")
     ;
 
     private final int value;
