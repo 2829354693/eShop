@@ -4,15 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.yc.eshop.user.mapper.UserMapper">
-    <resultMap id="baseColumn" type="com.yc.eshop.common.entity.User">
-        <id column="user_id" property="userId"/>
-        <result column="account" property="account"/>
-        <result column="password" property="password"/>
-        <result column="nickname" property="nickname"/>
-        <result column="sex" property="sex"/>
-        <result column="head_pic" property="headPic"/>
-        <result column="coin" property="coin"/>
-    </resultMap>
+<!--    <resultMap id="baseColumn" type="com.yc.eshop.common.entity.User">-->
+<!--        <id column="user_id" property="userId"/>-->
+<!--        <result column="account" property="account"/>-->
+<!--        <result column="password" property="password"/>-->
+<!--        <result column="nickname" property="nickname"/>-->
+<!--        <result column="sex" property="sex"/>-->
+<!--        <result column="head_pic" property="headPic"/>-->
+<!--        <result column="coin" property="coin"/>-->
+<!--    </resultMap>-->
 
     <insert id="insertUser" parameterType="com.yc.eshop.common.entity.User">
         insert into user(account, password, nickname, sex, head_pic, coin) VALUES

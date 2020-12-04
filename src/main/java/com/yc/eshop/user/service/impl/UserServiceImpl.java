@@ -9,6 +9,7 @@ import com.yc.eshop.common.service.RedisService;
 import com.yc.eshop.common.vo.UserTokenVO;
 import com.yc.eshop.user.mapper.UserMapper;
 import com.yc.eshop.user.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,8 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
+    private static final String USER_SALT = "iloveeshop";
+
     @Autowired
     UserMapper userMapper;
 
@@ -33,11 +36,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public ApiResponse<Void> register(User userDTO) {
+
         User user = User.builder()
                 .account(userDTO.getAccount())
                 .password(userDTO.getPassword())
-                .nickname(userDTO.getAccount())
-                .sex("无")
+                .nickname("游客_" + userDTO.getAccount().substring(0, 5))
+                .sex("保密")
                 .headPic("")
                 .coin(100000)
                 .build();

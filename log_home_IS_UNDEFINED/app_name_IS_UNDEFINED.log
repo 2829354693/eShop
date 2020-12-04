@@ -1,0 +1,3 @@
+2020-12-04 11:08:38 [Thread-14] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-04 11:08:38 [Thread-14] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2020-12-04 11:08:38 [Thread-14] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
