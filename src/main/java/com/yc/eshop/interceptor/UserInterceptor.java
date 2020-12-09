@@ -29,7 +29,7 @@ public class UserInterceptor implements HandlerInterceptor {
         }
         Object loginUserInfo = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext()).getBean(RedisService.class).get(token);
         if (Objects.isNull(loginUserInfo)) {
-            response.getWriter().write(JSONObject.fromObject(ApiResponse.failure(ResponseCode.UNAUTHORIZED, "token错误！")).toString());
+            response.getWriter().write(JSONObject.fromObject(ApiResponse.failure(ResponseCode.UNAUTHORIZED, "未登录或登录已失效！")).toString());
             return false;
         }
         return true;

@@ -15,8 +15,8 @@
 <!--    </resultMap>-->
 
     <insert id="insertUser" parameterType="com.yc.eshop.common.entity.User">
-        insert into user(account, password, nickname, sex, head_pic, coin) VALUES
-            (#{account},#{password},#{nickname},#{sex},#{headPic},#{coin})
+        insert into user(account, password, salt, nickname, sex, head_pic, coin) VALUES
+            (#{account},#{password},#{salt},#{nickname},#{sex},#{headPic},#{coin})
     </insert>
 
 

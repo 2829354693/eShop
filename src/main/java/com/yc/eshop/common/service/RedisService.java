@@ -6,6 +6,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author 余聪
@@ -22,6 +23,14 @@ public class RedisService {
         stringRedisTemplate.setKeySerializer(redisSerializer);
         stringRedisTemplate.setValueSerializer(redisSerializer);
         stringRedisTemplate.opsForValue().set(key, (String) value);
+    }
+
+    public void setExpire(String key, Object value, Integer minutes) {
+        //更改在redis里面查看key编码问题
+        RedisSerializer redisSerializer = new StringRedisSerializer();
+        stringRedisTemplate.setKeySerializer(redisSerializer);
+        stringRedisTemplate.setValueSerializer(redisSerializer);
+        stringRedisTemplate.opsForValue().set(key, (String) value, minutes, TimeUnit.MINUTES);
     }
 
     public Object get(String key) {

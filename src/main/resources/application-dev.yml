@@ -8,3 +8,5 @@ spring:
     host: 127.0.0.1
     port: 6379
     password: 123456
+
+picture-nginx-host: http://127.0.0.1:80/

@@ -17,7 +17,7 @@ import java.lang.reflect.InvocationTargetException;
  * @date 2020/10/16
  */
 @Validated
-@Api(value = "/user", tags = "用户controller")
+@Api(value = "/user", tags = "用户Controller")
 @RestController
 @RequestMapping("/user")
 public class UserController {

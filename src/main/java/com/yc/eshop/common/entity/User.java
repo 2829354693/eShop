@@ -35,6 +35,8 @@ public class User implements Serializable {
     @Size(min = 3, max = 20)
     private String password;
 
+    private String salt;
+
     private String nickname;
 
     private String sex;

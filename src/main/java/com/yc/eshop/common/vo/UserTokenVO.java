@@ -9,6 +9,7 @@ import java.io.Serializable;
  * @author 余聪
  * @date 2020/12/3
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Setter
 @Getter

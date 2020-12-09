@@ -2,8 +2,6 @@ package com.yc.eshop.common.util;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
 
-import java.util.UUID;
-
 /**
  * @author 余聪
  * @date 2020/12/4

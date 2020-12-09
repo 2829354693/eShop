@@ -13,5 +13,7 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
+user-token-expire: 30
+
 logging:
   config: classpath:logback-spring.xml
