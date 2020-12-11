@@ -28,6 +28,8 @@ public class Store implements Serializable {
 
     private String logo;
 
+    private Integer state;
+
     private Integer merchantId;
 
     @TableField(exist = false)

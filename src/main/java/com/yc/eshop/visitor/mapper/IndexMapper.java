@@ -5,6 +5,7 @@ import com.yc.eshop.common.dto.SearchItemParam;
 import com.yc.eshop.common.entity.Item;
 import com.yc.eshop.common.entity.Store;
 import com.yc.eshop.common.vo.ItemStoreVO;
+import com.yc.eshop.common.vo.StoreThreeItemsVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -30,5 +31,15 @@ public interface IndexMapper extends BaseMapper<Item> {
 
     List<Store> getRankingStore();
 
-    List<ItemStoreVO> searchItems(SearchItemParam searchItemParamDTO);
+    List<ItemStoreVO> getSearchItems(SearchItemParam searchItemParamDTO);
+
+    List<StoreThreeItemsVO> getSearchStoreByName(String name);
+
+    List<StoreThreeItemsVO> getSearchStoreByType(String type);
+
+    List<Item> getHotThreeItems(Integer storeId);
+
+    Store getStoreByStoreId(Integer storeId);
+
+    List<Item> getStoreItemsByStoreId(Integer storeId);
 }

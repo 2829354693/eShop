@@ -6,6 +6,7 @@ import com.yc.eshop.common.entity.Item;
 import com.yc.eshop.common.entity.Store;
 import com.yc.eshop.common.response.ApiResponse;
 import com.yc.eshop.common.vo.ItemStoreVO;
+import com.yc.eshop.common.vo.StoreThreeItemsVO;
 
 import java.util.List;
 
@@ -28,4 +29,25 @@ public interface IndexService extends IService<Item> {
     ApiResponse<List<Store>> rankingStore();
 
     ApiResponse<List<ItemStoreVO>> searchItems(SearchItemParam searchItemParamDTO);
+
+    ApiResponse<List<StoreThreeItemsVO>> searchStores(SearchItemParam searchItemParamDTO) throws Exception;
+
+    ApiResponse<Store> getStoreData(Integer storeId) throws Exception;
+
+    ApiResponse<List<Item>> getStoreItems(Integer storeId) throws Exception;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

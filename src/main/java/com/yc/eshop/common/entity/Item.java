@@ -1,6 +1,7 @@
 package com.yc.eshop.common.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author 余聪
@@ -35,6 +37,8 @@ public class Item implements Serializable {
     private String type;
 
     private String picture;
+
+    private String pictures;
 
     @NotNull(message = "商品库存不能为空")
     private Integer inventory;

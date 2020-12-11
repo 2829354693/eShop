@@ -12,16 +12,16 @@
 
     <!-- 系统日志输出 -->
     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log_home}/${app_name}.log</file>
+        <file>${log_home}/eshop.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 按天回滚 daily -->
-            <fileNamePattern>${log_home}/history/${app_name}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${log_home}/history/eshop.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <!-- 日志最大的历史 30天 -->
             <maxHistory>5</maxHistory>
             <totalSizeCap>10GB</totalSizeCap>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <!-- maxFileSize:这是活动文件的大小，默认值是10MB，测试时可改成1KB看效果 -->
-                <maxFileSize>100MB</maxFileSize>
+                <maxFileSize>10MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <encoder>

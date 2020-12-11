@@ -5,6 +5,7 @@ import com.yc.eshop.common.entity.Item;
 import com.yc.eshop.common.entity.Store;
 import com.yc.eshop.common.response.ApiResponse;
 import com.yc.eshop.common.vo.ItemStoreVO;
+import com.yc.eshop.common.vo.StoreThreeItemsVO;
 import com.yc.eshop.visitor.service.IndexService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -68,6 +69,41 @@ public class IndexController {
     public ApiResponse<List<ItemStoreVO>> searchItems(@RequestBody SearchItemParam searchItemParamDTO) {
         return indexService.searchItems(searchItemParamDTO);
     }
+
+    @ApiOperation("搜索店铺")
+    @PostMapping("/searchStores")
+    public ApiResponse<List<StoreThreeItemsVO>> searchStores(@RequestBody SearchItemParam searchItemParamDTO) throws Exception {
+        return indexService.searchStores(searchItemParamDTO);
+    }
+
+    @ApiOperation("获取店铺数据")
+    @GetMapping("/getStoreData")
+    public ApiResponse<Store> getStoreData(Integer storeId) throws Exception {
+        return indexService.getStoreData(storeId);
+    }
+
+    @ApiOperation("获取店铺所有商品")
+    @GetMapping("/getStoreItems")
+    public ApiResponse<List<Item>> getStoreItems(Integer storeId) throws Exception {
+        return indexService.getStoreItems(storeId);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
