@@ -14,6 +14,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
@@ -30,6 +31,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Value("${user-token-expire}")
     Integer userTokenExpire;
 
+    @Value("${picture-nginx-host}")
+    private String pictureNginxHost;
+
     @Autowired
     UserMapper userMapper;
 
@@ -37,6 +41,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     RedisService redisService;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public ApiResponse<Void> register(User userDTO) {
 
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
@@ -53,7 +58,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 .account(userDTO.getAccount())
                 .password(encryptPwd)
                 .salt(salt)
-                .nickname("游客_" + userDTO.getAccount().substring(0, 5))
+                .nickname("用户_" + userDTO.getAccount().substring(0, 5))
                 .sex("保密")
                 .headPic("")
                 .coin(100000)
@@ -63,8 +68,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public ApiResponse<User> getOne(Integer id) {
-        User user = userMapper.selectById(id);
+    public ApiResponse<User> getUserData(Integer userId) {
+        User user = userMapper.selectById(userId);
+        if (Objects.nonNull(user) && !"".equals(user.getHeadPic())) {
+            user.setHeadPic(pictureNginxHost + user.getHeadPic());
+        }
         return ApiResponse.ok(user);
     }
 
@@ -97,5 +105,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "已退出登录！");
         }
         return ApiResponse.ok();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ApiResponse<User> changeUserInfo(User userDTO) {
+        userMapper.updateUserInfo(userDTO);
+        return getUserData(userDTO.getUserId());
     }
 }

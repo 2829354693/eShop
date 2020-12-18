@@ -43,11 +43,15 @@ public class UserController {
         return userService.logout(request);
     }
 
-    @ApiOperation("获取一个账号")
-    @GetMapping("/getOne")
-    public ApiResponse<User> getOne(Integer id) {
-        return userService.getOne(id);
+    @ApiOperation("获取一个用户信息")
+    @GetMapping("/getUserData")
+    public ApiResponse<User> getUserData(Integer userId) {
+        return userService.getUserData(userId);
     }
 
-
+    @ApiOperation("更改用户昵称或性别")
+    @PostMapping("/changeUserInfo")
+    public ApiResponse<User> changeUserInfo(@RequestBody User userDTO) {
+        return userService.changeUserInfo(userDTO);
+    }
 }

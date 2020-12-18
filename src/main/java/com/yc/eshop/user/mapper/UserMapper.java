@@ -12,4 +12,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMapper extends BaseMapper<User> {
 
     void insertUser(User user);
+
+    void updateUserInfo(User user);
 }

@@ -19,5 +19,9 @@
             (#{account},#{password},#{salt},#{nickname},#{sex},#{headPic},#{coin})
     </insert>
 
+    <update id="updateUserInfo" parameterType="com.yc.eshop.common.entity.User">
+        update user set nickname=#{nickname}, sex=#{sex} where user_id=#{userId}
+    </update>
+
 
 </mapper>

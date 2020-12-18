@@ -15,9 +15,11 @@ public interface UserService extends IService<User> {
 
     ApiResponse<Void> register(User userDTO);
 
-    ApiResponse<User> getOne(Integer id);
+    ApiResponse<User> getUserData(Integer userId);
 
     ApiResponse<?> login(User user) throws InvocationTargetException, IllegalAccessException;
 
     ApiResponse<Void> logout(HttpServletRequest request);
+
+    ApiResponse<User> changeUserInfo(User userDTO);
 }
