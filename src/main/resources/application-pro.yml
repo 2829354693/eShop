@@ -4,6 +4,44 @@ spring:
     url: jdbc:mysql://39.96.66.218:3306/eshop?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
     username: root
     password: huangfen123
+    type: com.alibaba.druid.pool.DruidDataSource
+      druid:
+        initial-size: 5
+        min-idle: 5
+        max-active: 20
+        max-wait: 60000
+        time-between-eviction-runs-millis: 60000
+        min-evictable-idle-time-millis: 300000
+        validation-query: SELECT 1 FROM DUAL
+        test-while-idle: true
+        test-on-borrow: false
+        test-on-return: false
+        pool-prepared-statements: true
+        filter:
+          stat:
+            enabled: true
+            db-type: mysql
+            log-slow-sql: true
+            slow-sql-millis: 2000
+          web-stat-filter:
+            enabled: true
+            exclusions:
+              - "*.js"
+              - "*.gif"
+              - "*.jpg"
+              - "*.css"
+              - "*.png"
+              - "*.ico"
+              - "/druid/*"
+          stat-view-servlet:
+            enabled: true
+            url-pattern: /druid/*
+            reset-enable: false
+            login-username: admin
+            login-password: 123456
+        max-pool-prepared-statement-per-connection-size: 20
+        use-global-data-source-stat: true
+        connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
   redis:
     host: localhost
     port: 6379

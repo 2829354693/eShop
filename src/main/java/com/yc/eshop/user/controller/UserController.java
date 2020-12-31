@@ -1,5 +1,7 @@
 package com.yc.eshop.user.controller;
 
+import com.yc.eshop.common.dto.PasswordParam;
+import com.yc.eshop.common.entity.Address;
 import com.yc.eshop.common.entity.User;
 import com.yc.eshop.common.response.ApiResponse;
 import com.yc.eshop.user.service.UserService;
@@ -8,8 +10,11 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 /**
@@ -54,4 +59,57 @@ public class UserController {
     public ApiResponse<User> changeUserInfo(@RequestBody User userDTO) {
         return userService.changeUserInfo(userDTO);
     }
+
+    @ApiOperation("更改用户密码")
+    @PostMapping("/changeUserPass")
+    public ApiResponse<Void> changeUserPass(@RequestBody @Validated PasswordParam passwordParam, HttpServletRequest request) {
+        return userService.changeUserPass(passwordParam, request);
+    }
+
+    @PostMapping("/headUpload")
+    public ApiResponse<Void> uploadUserHeadPic(MultipartFile headPicFile, Integer userId) throws IOException {
+        return userService.uploadUserHeadPic(headPicFile, userId);
+    }
+
+    @ApiOperation("用户充值余额")
+    @PostMapping("/chargeCoin")
+    public ApiResponse<Void> chargeCoin(Integer userId, Integer chargeNum) {
+        return userService.chargeCoin(userId, chargeNum);
+    }
+
+    @ApiOperation("获取用户地址列表")
+    @GetMapping("/getAddressData")
+    public ApiResponse<?> getAddressData(Integer userId) {
+        return userService.getAddressData(userId);
+    }
+
+    @ApiOperation("添加地址")
+    @PostMapping("/addAddress")
+    public ApiResponse<Address> addAddress(@RequestBody @Validated Address addressDTO) {
+        return userService.addAddress(addressDTO);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

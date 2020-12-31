@@ -12,6 +12,7 @@ import com.yc.eshop.visitor.service.IndexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
  * @date 2020/12/7
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class IndexServiceImpl extends ServiceImpl<IndexMapper, Item> implements IndexService {
 
     @Value("${picture-nginx-host}")

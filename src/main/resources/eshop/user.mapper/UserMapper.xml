@@ -23,5 +23,51 @@
         update user set nickname=#{nickname}, sex=#{sex} where user_id=#{userId}
     </update>
 
+    <select id="getPassSalt" parameterType="integer" resultType="com.yc.eshop.common.entity.User">
+        select password, salt from user where user_id=#{userId}
+    </select>
+
+    <update id="updatePass">
+        update user set password=#{param2} where user_id=#{param1}
+    </update>
+
+    <update id="updateUserHeadPic">
+        update user set head_pic=#{param2} where user_id=#{param1}
+    </update>
+
+    <select id="getCoinById" parameterType="integer" resultType="integer">
+        select coin from user where user_id=#{userId}
+    </select>
+
+    <update id="updateCoinById">
+        update user
+        set coin = #{param2}
+        where user_id = #{param1};
+    </update>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </mapper>
