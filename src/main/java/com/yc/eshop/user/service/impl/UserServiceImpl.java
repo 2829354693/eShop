@@ -200,32 +200,41 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return ApiResponse.ok(addressDTO);
     }
 
+    @Override
+    public ApiResponse<Void> delAddress(Integer addressId) {
+        addressMapper.deleteById(addressId);
+        return ApiResponse.ok();
+    }
 
+    @Override
+    public ApiResponse<Void> changeAddressUser(Address addressDTO) {
+        if (Objects.isNull(addressDTO)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        Integer addressId = addressDTO.getAddressId();
+        String tag = addressDTO.getTag();
+        String receiveUsername = addressDTO.getReceiveUsername();
+        String receiveTelephone = addressDTO.getReceiveTelephone();
+        if (Objects.isNull(addressId) || Objects.isNull(tag) || Objects.isNull(receiveUsername) || Objects.isNull(receiveTelephone)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        addressMapper.updateAddressUser(addressDTO);
+        return ApiResponse.ok();
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Override
+    public ApiResponse<Void> changeAddress(Address addressDTO) {
+        if (Objects.isNull(addressDTO)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        Integer addressId = addressDTO.getAddressId();
+        String address = addressDTO.getAddress();
+        if (Objects.isNull(addressId) || Objects.isNull(address)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        addressMapper.updateAddress(addressDTO);
+        return ApiResponse.ok();
+    }
 
 
 }

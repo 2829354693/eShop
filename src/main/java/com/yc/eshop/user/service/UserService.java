@@ -37,8 +37,10 @@ public interface UserService extends IService<User> {
 
     ApiResponse<Address> addAddress(Address addressDTO);
 
+    ApiResponse<Void> delAddress(Integer addressId);
 
+    ApiResponse<Void> changeAddressUser(Address addressDTO);
 
-
+    ApiResponse<Void> changeAddress(Address addressDTO);
 
 }

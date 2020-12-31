@@ -89,9 +89,23 @@ public class UserController {
         return userService.addAddress(addressDTO);
     }
 
+    @ApiOperation("删除地址")
+    @GetMapping("/delAddress")
+    public ApiResponse<Void> delAddress(Integer addressId) {
+        return userService.delAddress(addressId);
+    }
 
+    @ApiOperation("更改地址的收货人信息")
+    @PostMapping("/changeAddressUser")
+    public ApiResponse<Void> changeAddressUser(@RequestBody Address addressDTO) {
+        return userService.changeAddressUser(addressDTO);
+    }
 
-
+    @ApiOperation("更改收货地址信息")
+    @PostMapping("/changeAddress")
+    public ApiResponse<Void> changeAddress(@RequestBody Address addressDTO) {
+        return userService.changeAddress(addressDTO);
+    }
 
 
 
