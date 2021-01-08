@@ -45,6 +45,18 @@
         where user_id = #{param1};
     </update>
 
+    <select id="getCartData" parameterType="integer" resultType="com.yc.eshop.common.entity.Cart">
+        select store.store_id,store.logo,store.name, item.item_id, item.title, item.price, item.picture, item.state, cart.cart_id, cart.amount
+        from item,cart,store
+        where item.item_id=cart.item_id and item.store_id=store.store_id and cart.user_id=#{userId}
+    </select>
+    
+    <delete id="deleteCart">
+        delete from cart where cart_id in 
+            <foreach collection="array" item="cartId" open="(" close=")" separator=",">
+                #{cartId}
+            </foreach>
+    </delete>
 
 
 

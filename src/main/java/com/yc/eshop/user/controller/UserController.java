@@ -66,6 +66,7 @@ public class UserController {
         return userService.changeUserPass(passwordParam, request);
     }
 
+    @ApiIgnore
     @PostMapping("/headUpload")
     public ApiResponse<Void> uploadUserHeadPic(MultipartFile headPicFile, Integer userId) throws IOException {
         return userService.uploadUserHeadPic(headPicFile, userId);
@@ -107,9 +108,17 @@ public class UserController {
         return userService.changeAddress(addressDTO);
     }
 
+    @ApiOperation("获取用户购物车信息")
+    @GetMapping("/getCartData")
+    public ApiResponse<?> getCartData(Integer userId) {
+        return userService.getCartData(userId);
+    }
 
-
-
+    @ApiOperation("移除选中的购物车商品")
+    @PostMapping("/removeCart")
+    public ApiResponse<Void> removeCart(Integer[] cartIds) {
+        return userService.removeCart(cartIds);
+    }
 
 
 

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yc.eshop.common.dto.PasswordParam;
 import com.yc.eshop.common.entity.Address;
+import com.yc.eshop.common.entity.Cart;
 import com.yc.eshop.common.entity.User;
 import com.yc.eshop.common.response.ApiResponse;
 import com.yc.eshop.common.response.ResponseCode;
@@ -29,12 +30,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * @author 余聪
  * @date 2020/10/16
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Value("${user-token-expire}")
@@ -56,7 +59,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     RedisService redisService;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public ApiResponse<Void> register(User userDTO) {
 
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
@@ -235,6 +237,60 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         addressMapper.updateAddress(addressDTO);
         return ApiResponse.ok();
     }
+
+    @Override
+    public ApiResponse<?> getCartData(Integer userId) {
+        if (Objects.isNull(userId)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        List<Cart> cartData = userMapper.getCartData(userId);
+        if (Objects.isNull(cartData)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数错误！");
+        }
+        List<Cart> cartList = cartData.stream().peek(cart -> {
+            cart.setLogo(pictureNginxHost + cart.getLogo());
+            cart.setPicture(pictureNginxHost + cart.getPicture());
+        }).collect(Collectors.toList());
+        return ApiResponse.ok(cartList);
+    }
+
+    @Override
+    public ApiResponse<Void> removeCart(Integer[] cartIds) {
+        if (Objects.isNull(cartIds) || cartIds.length == 0) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        userMapper.deleteCart(cartIds);
+        return ApiResponse.ok();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

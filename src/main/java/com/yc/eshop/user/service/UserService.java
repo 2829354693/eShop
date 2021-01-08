@@ -43,4 +43,29 @@ public interface UserService extends IService<User> {
 
     ApiResponse<Void> changeAddress(Address addressDTO);
 
+    ApiResponse<?> getCartData(Integer userId);
+
+    ApiResponse<Void> removeCart(Integer[] cartIds);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
