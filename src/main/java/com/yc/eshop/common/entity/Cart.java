@@ -22,6 +22,8 @@ public class Cart implements Serializable {
 
     private Integer itemId;
 
+    private Integer userId;
+
     private Integer storeId;
 
     private String logo;

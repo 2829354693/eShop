@@ -1,15 +1,19 @@
 package com.yc.eshop.user.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.yc.eshop.common.dto.JoinCartParam;
 import com.yc.eshop.common.dto.PasswordParam;
 import com.yc.eshop.common.entity.Address;
+import com.yc.eshop.common.entity.Cart;
 import com.yc.eshop.common.entity.User;
 import com.yc.eshop.common.response.ApiResponse;
+import net.sf.json.JSONObject;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 /**
  * @author 余聪
@@ -20,6 +24,8 @@ public interface UserService extends IService<User> {
     ApiResponse<Void> register(User userDTO);
 
     ApiResponse<User> getUserData(Integer userId);
+
+    ApiResponse<User> getUserDataExcpPsw(Integer userId);
 
     ApiResponse<?> login(User user) throws InvocationTargetException, IllegalAccessException;
 
@@ -45,9 +51,11 @@ public interface UserService extends IService<User> {
 
     ApiResponse<?> getCartData(Integer userId);
 
-    ApiResponse<Void> removeCart(Integer[] cartIds);
+    ApiResponse<Void> removeCart(JSONObject jsonObject);
 
+    ApiResponse<Void> joinCart(JoinCartParam joinCartParam);
 
+    ApiResponse<Void> changeCartNum(Cart cartDTO);
 
 
 

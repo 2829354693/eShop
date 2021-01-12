@@ -25,12 +25,12 @@ public class RedisService {
         stringRedisTemplate.opsForValue().set(key, (String) value);
     }
 
-    public void setExpire(String key, Object value, Integer minutes) {
+    public void setExpire(String key, Object value, Integer hours) {
         //更改在redis里面查看key编码问题
         RedisSerializer redisSerializer = new StringRedisSerializer();
         stringRedisTemplate.setKeySerializer(redisSerializer);
         stringRedisTemplate.setValueSerializer(redisSerializer);
-        stringRedisTemplate.opsForValue().set(key, (String) value, minutes, TimeUnit.MINUTES);
+        stringRedisTemplate.opsForValue().set(key, (String) value, hours, TimeUnit.HOURS);
     }
 
     public Object get(String key) {

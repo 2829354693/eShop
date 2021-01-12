@@ -53,11 +53,20 @@
     
     <delete id="deleteCart">
         delete from cart where cart_id in 
-            <foreach collection="array" item="cartId" open="(" close=")" separator=",">
+            <foreach collection="list" item="cartId" open="(" close=")" separator=",">
                 #{cartId}
             </foreach>
     </delete>
 
+    <insert id="insertCart" parameterType="com.yc.eshop.common.entity.Cart">
+        insert into cart(item_id, amount, user_id) VALUE (#{itemId}, #{amount}, #{userId})
+    </insert>
+    
+    <update id="updateCartNum" parameterType="com.yc.eshop.common.entity.Cart">
+        update cart
+        set amount = #{amount}
+        where cart_id = #{cartId};
+    </update>
 
 
 

@@ -1,12 +1,15 @@
 package com.yc.eshop.user.controller;
 
+import com.yc.eshop.common.dto.JoinCartParam;
 import com.yc.eshop.common.dto.PasswordParam;
 import com.yc.eshop.common.entity.Address;
+import com.yc.eshop.common.entity.Cart;
 import com.yc.eshop.common.entity.User;
 import com.yc.eshop.common.response.ApiResponse;
 import com.yc.eshop.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +19,7 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 /**
  * @author 余聪
@@ -36,6 +40,12 @@ public class UserController {
         return userService.login(userDTO);
     }
 
+    @ApiIgnore
+    @GetMapping("/testUserConn")
+    public ApiResponse<Void> testUserConn() {
+        return ApiResponse.ok();
+    }
+
     @ApiOperation("用户注册")
     @PostMapping("/register")
     public ApiResponse<Void> register(@Validated @RequestBody User userDTO) {
@@ -52,6 +62,12 @@ public class UserController {
     @GetMapping("/getUserData")
     public ApiResponse<User> getUserData(Integer userId) {
         return userService.getUserData(userId);
+    }
+
+    @ApiOperation("获取一个用户信息除去密码")
+    @GetMapping("/getUserDataExcpPsw")
+    public ApiResponse<User> getUserDataExcpPsw(Integer userId) {
+        return userService.getUserDataExcpPsw(userId);
     }
 
     @ApiOperation("更改用户昵称或性别")
@@ -116,9 +132,39 @@ public class UserController {
 
     @ApiOperation("移除选中的购物车商品")
     @PostMapping("/removeCart")
-    public ApiResponse<Void> removeCart(Integer[] cartIds) {
-        return userService.removeCart(cartIds);
+    public ApiResponse<Void> removeCart(@RequestBody JSONObject jsonObject) {
+        return userService.removeCart(jsonObject);
     }
+
+    @ApiOperation("加入购物车")
+    @PostMapping("/joinCart")
+    public ApiResponse<Void> joinCart(@RequestBody @Validated JoinCartParam joinCartParam) {
+        return userService.joinCart(joinCartParam);
+    }
+
+    @ApiOperation("改变购物车商品的数量")
+    @PostMapping("/changeCartNum")
+    public ApiResponse<Void> changeCartNum(@RequestBody Cart cartDTO) {
+        return userService.changeCartNum(cartDTO);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

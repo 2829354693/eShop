@@ -2,6 +2,7 @@ package com.yc.eshop.user.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.yc.eshop.common.dto.JoinCartParam;
 import com.yc.eshop.common.dto.PasswordParam;
 import com.yc.eshop.common.entity.Address;
 import com.yc.eshop.common.entity.Cart;
@@ -14,6 +15,8 @@ import com.yc.eshop.common.vo.UserTokenVO;
 import com.yc.eshop.user.mapper.AddressMapper;
 import com.yc.eshop.user.mapper.UserMapper;
 import com.yc.eshop.user.service.UserService;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -89,6 +92,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = userMapper.selectById(userId);
         if (Objects.nonNull(user) && !"".equals(user.getHeadPic())) {
             user.setHeadPic(pictureNginxHost + user.getHeadPic());
+        }
+        return ApiResponse.ok(user);
+    }
+
+    @Override
+    public ApiResponse<User> getUserDataExcpPsw(Integer userId) {
+        User user = userMapper.selectById(userId);
+        if (Objects.nonNull(user) && !"".equals(user.getHeadPic())) {
+            user.setHeadPic(pictureNginxHost + user.getHeadPic());
+            user.setPassword("");
+            user.setSalt("");
         }
         return ApiResponse.ok(user);
     }
@@ -255,18 +269,49 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public ApiResponse<Void> removeCart(Integer[] cartIds) {
-        if (Objects.isNull(cartIds) || cartIds.length == 0) {
+    public ApiResponse<Void> removeCart(JSONObject jsonObject) {
+        if (Objects.isNull(jsonObject)) {
             return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
         }
+        JSONArray jsonArray = jsonObject.getJSONArray("cartIds");
+        List<Integer> cartIds = (List<Integer>) JSONArray.toCollection(jsonArray, Integer.class);
         userMapper.deleteCart(cartIds);
         return ApiResponse.ok();
     }
 
+    @Override
+    public ApiResponse<Void> joinCart(JoinCartParam joinCartParam) {
+        if (Objects.isNull(joinCartParam)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        if (!isUserExist(joinCartParam.getUserId())) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "用户不存在！");
+        }
+        Cart cart = Cart.builder()
+                .userId(joinCartParam.getUserId())
+                .itemId(joinCartParam.getItemId())
+                .amount(joinCartParam.getBuyNum())
+                .build();
+        userMapper.insertCart(cart);
+        return ApiResponse.ok();
+    }
 
+    @Override
+    public ApiResponse<Void> changeCartNum(Cart cartDTO) {
+        if (Objects.isNull(cartDTO)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        if (Objects.isNull(cartDTO.getCartId()) || Objects.isNull(cartDTO.getAmount())) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        userMapper.updateCartNum(cartDTO);
+        return ApiResponse.ok();
+    }
 
-
-
+    private Boolean isUserExist(Integer userId) {
+        User user = userMapper.selectById(userId);
+        return Objects.nonNull(user);
+    }
 
 
 

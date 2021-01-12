@@ -5,6 +5,7 @@ import com.yc.eshop.common.entity.Address;
 import com.yc.eshop.common.entity.Cart;
 import com.yc.eshop.common.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.jdbc.repository.query.Modifying;
 
 import java.util.List;
 
@@ -31,8 +32,11 @@ public interface UserMapper extends BaseMapper<User> {
 
     List<Cart> getCartData(Integer userId);
 
-    void deleteCart(Integer[] cartIds);
+    void deleteCart(List<Integer> cartIds);
 
+    void insertCart(Cart cart);
+
+    void updateCartNum(Cart cart);
 
 
 }
