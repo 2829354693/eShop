@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yc.eshop.common.dto.SearchItemParam;
 import com.yc.eshop.common.entity.Item;
 import com.yc.eshop.common.entity.Store;
+import com.yc.eshop.common.entity.StoreCoupon;
 import com.yc.eshop.common.response.ApiResponse;
+import com.yc.eshop.common.response.ResponseCode;
 import com.yc.eshop.common.vo.ItemStoreVO;
 import com.yc.eshop.common.vo.StoreThreeItemsVO;
 import com.yc.eshop.visitor.mapper.IndexMapper;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -141,6 +144,17 @@ public class IndexServiceImpl extends ServiceImpl<IndexMapper, Item> implements 
         } else {
             throw new Exception("店铺id为空！");
         }
+    }
+
+    @Override
+    public ApiResponse<?> getStoreCoupon(Integer storeId) {
+        if (Objects.isNull(storeId)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        List<StoreCoupon> storeCouponList = indexMapper.getStoreCoupon(storeId);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        storeCouponList.forEach(storeCoupon -> storeCoupon.setEndTimeStr(sdf.format(storeCoupon.getEndTime())));
+        return ApiResponse.ok(storeCouponList, (long) storeCouponList.size());
     }
 
     private List<StoreThreeItemsVO> assembleStores(List<StoreThreeItemsVO> stores) {

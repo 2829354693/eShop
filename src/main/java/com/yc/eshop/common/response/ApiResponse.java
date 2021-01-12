@@ -23,6 +23,13 @@ public class ApiResponse<T> implements Serializable {
         return apiResponse;
     }
 
+    public static ApiResponse<Void> ok(String message) {
+        ApiResponse<Void> apiResponse = new ApiResponse<>();
+        apiResponse.setCode(ResponseCode.OK.getValue());
+        apiResponse.setMessage(message);
+        return apiResponse;
+    }
+
     public static <T> ApiResponse<T> ok(T data) {
         ApiResponse<T> apiResponse = new ApiResponse<>();
         apiResponse.setCode(ResponseCode.OK.getValue());

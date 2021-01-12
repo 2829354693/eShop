@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.yc.eshop.common.dto.SearchItemParam;
 import com.yc.eshop.common.entity.Item;
 import com.yc.eshop.common.entity.Store;
+import com.yc.eshop.common.entity.StoreCoupon;
 import com.yc.eshop.common.response.ApiResponse;
 import com.yc.eshop.common.vo.ItemStoreVO;
 import com.yc.eshop.common.vo.StoreThreeItemsVO;
@@ -36,7 +37,7 @@ public interface IndexService extends IService<Item> {
 
     ApiResponse<List<Item>> getStoreItems(Integer storeId) throws Exception;
 
-
+    ApiResponse<?> getStoreCoupon(Integer storeId);
 
 
 

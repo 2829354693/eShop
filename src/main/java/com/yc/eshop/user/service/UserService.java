@@ -6,6 +6,7 @@ import com.yc.eshop.common.dto.PasswordParam;
 import com.yc.eshop.common.entity.Address;
 import com.yc.eshop.common.entity.Cart;
 import com.yc.eshop.common.entity.User;
+import com.yc.eshop.common.entity.UserCoupon;
 import com.yc.eshop.common.response.ApiResponse;
 import net.sf.json.JSONObject;
 import org.springframework.web.multipart.MultipartFile;
@@ -57,7 +58,7 @@ public interface UserService extends IService<User> {
 
     ApiResponse<Void> changeCartNum(Cart cartDTO);
 
-
+    ApiResponse<?> getAStoreCoupon(UserCoupon userCoupon);
 
 
 

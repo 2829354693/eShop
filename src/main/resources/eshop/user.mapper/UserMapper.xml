@@ -68,8 +68,13 @@
         where cart_id = #{cartId};
     </update>
 
+    <insert id="insertUserCoupon" parameterType="com.yc.eshop.common.entity.UserCoupon">
+        insert into coupon_user(coupon_id, user_id) VALUE (#{couponId}, #{userId})
+    </insert>
 
-
+    <select id="selectByUidCid" parameterType="com.yc.eshop.common.entity.UserCoupon" resultType="com.yc.eshop.common.entity.UserCoupon">
+        select * from coupon_user where user_id=#{userId} and coupon_id=#{couponId}
+    </select>
 
 
 

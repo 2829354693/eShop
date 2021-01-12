@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yc.eshop.common.entity.Address;
 import com.yc.eshop.common.entity.Cart;
 import com.yc.eshop.common.entity.User;
+import com.yc.eshop.common.entity.UserCoupon;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.data.jdbc.repository.query.Modifying;
 
@@ -37,6 +38,10 @@ public interface UserMapper extends BaseMapper<User> {
     void insertCart(Cart cart);
 
     void updateCartNum(Cart cart);
+
+    void insertUserCoupon(UserCoupon userCoupon);
+
+    UserCoupon selectByUidCid(UserCoupon userCoupon);
 
 
 }

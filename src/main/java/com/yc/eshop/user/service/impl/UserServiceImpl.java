@@ -7,6 +7,7 @@ import com.yc.eshop.common.dto.PasswordParam;
 import com.yc.eshop.common.entity.Address;
 import com.yc.eshop.common.entity.Cart;
 import com.yc.eshop.common.entity.User;
+import com.yc.eshop.common.entity.UserCoupon;
 import com.yc.eshop.common.response.ApiResponse;
 import com.yc.eshop.common.response.ResponseCode;
 import com.yc.eshop.common.service.RedisService;
@@ -306,6 +307,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         userMapper.updateCartNum(cartDTO);
         return ApiResponse.ok();
+    }
+
+    @Override
+    public ApiResponse<?> getAStoreCoupon(UserCoupon userCoupon) {
+        if (Objects.isNull(userCoupon) || Objects.isNull(userCoupon.getCouponId()) || Objects.isNull(userCoupon.getUserId())) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        UserCoupon coupon = userMapper.selectByUidCid(userCoupon);
+        if (Objects.nonNull(coupon)) {
+            return ApiResponse.ok(0);
+        }
+        userMapper.insertUserCoupon(userCoupon);
+        return ApiResponse.ok(1);
     }
 
     private Boolean isUserExist(Integer userId) {

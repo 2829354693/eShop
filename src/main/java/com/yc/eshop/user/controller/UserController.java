@@ -5,6 +5,7 @@ import com.yc.eshop.common.dto.PasswordParam;
 import com.yc.eshop.common.entity.Address;
 import com.yc.eshop.common.entity.Cart;
 import com.yc.eshop.common.entity.User;
+import com.yc.eshop.common.entity.UserCoupon;
 import com.yc.eshop.common.response.ApiResponse;
 import com.yc.eshop.user.service.UserService;
 import io.swagger.annotations.Api;
@@ -148,7 +149,11 @@ public class UserController {
         return userService.changeCartNum(cartDTO);
     }
 
-
+    @ApiOperation("用户领取一张店铺优惠券")
+    @PostMapping("/getAStoreCoupon")
+    public ApiResponse<?> getAStoreCoupon(@RequestBody UserCoupon userCouponDTO) {
+        return userService.getAStoreCoupon(userCouponDTO);
+    }
 
 
 

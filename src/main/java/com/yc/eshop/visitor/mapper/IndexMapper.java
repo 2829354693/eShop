@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yc.eshop.common.dto.SearchItemParam;
 import com.yc.eshop.common.entity.Item;
 import com.yc.eshop.common.entity.Store;
+import com.yc.eshop.common.entity.StoreCoupon;
 import com.yc.eshop.common.vo.ItemStoreVO;
 import com.yc.eshop.common.vo.StoreThreeItemsVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -42,4 +43,24 @@ public interface IndexMapper extends BaseMapper<Item> {
     Store getStoreByStoreId(Integer storeId);
 
     List<Item> getStoreItemsByStoreId(Integer storeId);
+
+    List<StoreCoupon> getStoreCoupon(Integer storeId);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -3,6 +3,7 @@ package com.yc.eshop.visitor.controller;
 import com.yc.eshop.common.dto.SearchItemParam;
 import com.yc.eshop.common.entity.Item;
 import com.yc.eshop.common.entity.Store;
+import com.yc.eshop.common.entity.StoreCoupon;
 import com.yc.eshop.common.response.ApiResponse;
 import com.yc.eshop.common.vo.ItemStoreVO;
 import com.yc.eshop.common.vo.StoreThreeItemsVO;
@@ -88,8 +89,11 @@ public class IndexController {
         return indexService.getStoreItems(storeId);
     }
 
-
-
+    @ApiOperation("/获取店铺主页优惠券")
+    @GetMapping("/getStoreCoupon")
+    public ApiResponse<?> getStoreCoupon(Integer storeId) {
+        return indexService.getStoreCoupon(storeId);
+    }
 
 
 
