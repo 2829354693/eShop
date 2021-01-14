@@ -76,16 +76,61 @@
         select * from coupon_user where user_id=#{userId} and coupon_id=#{couponId}
     </select>
 
+    <select id="getConfirmOrderData" resultType="com.yc.eshop.common.vo.ConfirmOrderVO">
+        select cart.cart_id,cart.amount,item.title,item.price,item.picture,store.store_id,store.logo,store.name
+        from cart,store,item where cart.item_id=item.item_id and store.store_id=item.store_id and cart.cart_id in
+            <foreach collection="list" open="(" close=")" separator="," item="cartId">
+                #{cartId}
+            </foreach>
+    </select>
 
+    <select id="getStoreIdByCartId" parameterType="integer" resultType="integer">
+        select item.store_id from cart,item where cart.item_id=item.item_id and cart.cart_id=#{cartId}
+    </select>
 
+    <select id="getCanUseCoupon" resultType="com.yc.eshop.common.vo.CouponVO">
+        select coupon_own_id,discount,satisfy,start_time,end_time,name from coupon_user,coupon_store,store
+        where coupon_user.coupon_id=coupon_store.coupon_id and store.store_id=coupon_store.store_id
+        and coupon_user.user_id = #{param1}
+        and satisfy &lt; #{param2}
+        and coupon_store.store_id=#{param3}
+        and start_time &lt; NOW() and end_time > NOW() and coupon_store.state=1
+    </select>
 
+    <select id="getCanUseCouponByUid" parameterType="integer" resultType="com.yc.eshop.common.vo.CouponExVO">
+        select coupon_own_id,discount,satisfy,start_time,end_time,name,store.store_id
+        from coupon_user,coupon_store,store
+        where coupon_user.coupon_id=coupon_store.coupon_id
+        and coupon_store.store_id=store.store_id
+        and coupon_user.user_id=#{userId}
+        and start_time &lt; NOW() and end_time>NOW() and coupon_store.state=1
+    </select>
 
+    <select id="getNotStartCouponByUid" parameterType="integer" resultType="com.yc.eshop.common.vo.CouponExVO">
+        select coupon_own_id,discount,satisfy,start_time,end_time,name,store.store_id
+        from coupon_user,coupon_store,store
+        where coupon_user.coupon_id=coupon_store.coupon_id
+        and coupon_store.store_id=store.store_id
+        and coupon_user.user_id=#{userId}
+        and start_time > NOW() and coupon_store.state=1
+    </select>
 
+    <select id="getEndCouponByUid" parameterType="integer" resultType="com.yc.eshop.common.vo.CouponExVO">
+        select coupon_own_id,discount,satisfy,start_time,end_time,name,store.store_id
+        from coupon_user,coupon_store,store
+        where coupon_user.coupon_id=coupon_store.coupon_id
+        and coupon_store.store_id=store.store_id
+        and coupon_user.user_id=#{userId}
+        and end_time &lt; NOW() and coupon_store.state=1
+    </select>
 
+    <select id="selectCartByUidIid" resultType="com.yc.eshop.common.entity.Cart">
+        select * from cart where user_id=#{param1} and item_id=#{param2}
+    </select>
 
-
-
-
+    <delete id="delEndCoupon" parameterType="integer">
+        delete from coupon_user where coupon_own_id=#{couponOwnId}
+    </delete>
 
 
 

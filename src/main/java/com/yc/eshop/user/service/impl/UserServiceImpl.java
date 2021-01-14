@@ -3,6 +3,7 @@ package com.yc.eshop.user.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yc.eshop.common.dto.JoinCartParam;
+import com.yc.eshop.common.dto.OrderCouponParam;
 import com.yc.eshop.common.dto.PasswordParam;
 import com.yc.eshop.common.entity.Address;
 import com.yc.eshop.common.entity.Cart;
@@ -12,6 +13,9 @@ import com.yc.eshop.common.response.ApiResponse;
 import com.yc.eshop.common.response.ResponseCode;
 import com.yc.eshop.common.service.RedisService;
 import com.yc.eshop.common.util.ShiroUtil;
+import com.yc.eshop.common.vo.CouponExVO;
+import com.yc.eshop.common.vo.CouponVO;
+import com.yc.eshop.common.vo.ConfirmOrderVO;
 import com.yc.eshop.common.vo.UserTokenVO;
 import com.yc.eshop.user.mapper.AddressMapper;
 import com.yc.eshop.user.mapper.UserMapper;
@@ -285,13 +289,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (Objects.isNull(joinCartParam)) {
             return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
         }
-        if (!isUserExist(joinCartParam.getUserId())) {
+        Integer userId = joinCartParam.getUserId();
+        Integer itemId = joinCartParam.getItemId();
+        Integer buyNum = joinCartParam.getBuyNum();
+        if (!isUserExist(userId)) {
             return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "用户不存在！");
         }
+        Cart cart1 = userMapper.selectCartByUidIid(userId, itemId);
+        if (Objects.nonNull(cart1)) {
+            cart1.setAmount(buyNum + cart1.getAmount());
+            userMapper.updateCartNum(cart1);
+            return ApiResponse.ok();
+        }
         Cart cart = Cart.builder()
-                .userId(joinCartParam.getUserId())
-                .itemId(joinCartParam.getItemId())
-                .amount(joinCartParam.getBuyNum())
+                .userId(userId)
+                .itemId(itemId)
+                .amount(buyNum)
                 .build();
         userMapper.insertCart(cart);
         return ApiResponse.ok();
@@ -320,6 +333,92 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         userMapper.insertUserCoupon(userCoupon);
         return ApiResponse.ok(1);
+    }
+
+    @Override
+    public ApiResponse<?> getConfirmOrderData(JSONObject jsonObject) {
+        if (Objects.isNull(jsonObject)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        JSONArray jsonArray = jsonObject.getJSONArray("cartIds");
+        List<Integer> cartIds = (List<Integer>) JSONArray.toCollection(jsonArray, Integer.class);
+        List<ConfirmOrderVO> confirmOrderData = userMapper.getConfirmOrderData(cartIds);
+        if (Objects.isNull(confirmOrderData)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        confirmOrderData.forEach(confirmOrderVO -> {
+            confirmOrderVO.setPicture(pictureNginxHost + confirmOrderVO.getPicture());
+            confirmOrderVO.setLogo(pictureNginxHost + confirmOrderVO.getLogo());
+            confirmOrderVO.setCouponOwnId(-1);
+            confirmOrderVO.setDiscount(0);
+            confirmOrderVO.setSatisfy(0);
+            confirmOrderVO.setEndTimeStr("");
+            confirmOrderVO.setRemark("");
+        });
+        return ApiResponse.ok(confirmOrderData);
+    }
+
+    @Override
+    public ApiResponse<?> getCanUseCoupon(OrderCouponParam orderCouponParam) {
+        if (Objects.isNull(orderCouponParam)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        Integer cartId = orderCouponParam.getCartId();
+        Integer orderPrice = orderCouponParam.getOrderPrice();
+        Integer userId = orderCouponParam.getUserId();
+        Integer storeId = userMapper.getStoreIdByCartId(cartId);
+        List<CouponVO> canUseCoupons = userMapper.getCanUseCoupon(userId, orderPrice, storeId);
+        if (Objects.isNull(canUseCoupons)) {
+            return ApiResponse.ok(null);
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        canUseCoupons.forEach(canUseCouponVO -> {
+            canUseCouponVO.setStartTimeStr(sdf.format(canUseCouponVO.getStartTime()));
+            canUseCouponVO.setEndTimeStr(sdf.format(canUseCouponVO.getEndTime()));
+        });
+        return ApiResponse.ok(canUseCoupons);
+    }
+
+    @Override
+    public ApiResponse<?> getCanUseCouponByUid(Integer userId) {
+        if (Objects.isNull(userId)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        List<CouponExVO> canUseCouponExVOS = userMapper.getCanUseCouponByUid(userId);
+        return ApiResponse.ok(date2String(canUseCouponExVOS));
+    }
+
+    @Override
+    public ApiResponse<?> getNotStartCouponByUid(Integer userId) {
+        if (Objects.isNull(userId)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        List<CouponExVO> notStartCouponExVOS = userMapper.getNotStartCouponByUid(userId);
+        return ApiResponse.ok(date2String(notStartCouponExVOS));
+    }
+
+    @Override
+    public ApiResponse<?> getEndCouponByUid(Integer userId) {
+        if (Objects.isNull(userId)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        List<CouponExVO> endCouponExVOS = userMapper.getEndCouponByUid(userId);
+        return ApiResponse.ok(date2String(endCouponExVOS));
+    }
+
+    @Override
+    public ApiResponse<Void> delEndCoupon(Integer couponOwnId) {
+        userMapper.delEndCoupon(couponOwnId);
+        return ApiResponse.ok();
+    }
+
+    private List<CouponExVO> date2String(List<CouponExVO> couponExVOS) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        couponExVOS.forEach(couponExVO -> {
+            couponExVO.setStartTimeStr(sdf.format(couponExVO.getStartTime()));
+            couponExVO.setEndTimeStr(sdf.format(couponExVO.getEndTime()));
+        });
+        return couponExVOS;
     }
 
     private Boolean isUserExist(Integer userId) {

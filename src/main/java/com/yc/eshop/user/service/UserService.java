@@ -2,6 +2,7 @@ package com.yc.eshop.user.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.yc.eshop.common.dto.JoinCartParam;
+import com.yc.eshop.common.dto.OrderCouponParam;
 import com.yc.eshop.common.dto.PasswordParam;
 import com.yc.eshop.common.entity.Address;
 import com.yc.eshop.common.entity.Cart;
@@ -60,15 +61,17 @@ public interface UserService extends IService<User> {
 
     ApiResponse<?> getAStoreCoupon(UserCoupon userCoupon);
 
+    ApiResponse<?> getConfirmOrderData(JSONObject jsonObject);
 
+    ApiResponse<?> getCanUseCoupon(OrderCouponParam orderCouponParam);
 
+    ApiResponse<?> getCanUseCouponByUid(Integer userId);
 
+    ApiResponse<?> getNotStartCouponByUid(Integer userId);
 
+    ApiResponse<?> getEndCouponByUid(Integer userId);
 
-
-
-
-
+    ApiResponse<Void> delEndCoupon(Integer couponOwnId);
 
 
 

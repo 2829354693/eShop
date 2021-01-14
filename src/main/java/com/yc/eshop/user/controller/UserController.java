@@ -1,6 +1,7 @@
 package com.yc.eshop.user.controller;
 
 import com.yc.eshop.common.dto.JoinCartParam;
+import com.yc.eshop.common.dto.OrderCouponParam;
 import com.yc.eshop.common.dto.PasswordParam;
 import com.yc.eshop.common.entity.Address;
 import com.yc.eshop.common.entity.Cart;
@@ -20,7 +21,6 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 
 /**
  * @author 余聪
@@ -39,12 +39,6 @@ public class UserController {
     @PostMapping("/login")
     public ApiResponse<?> login(@Validated @RequestBody User userDTO) throws InvocationTargetException, IllegalAccessException {
         return userService.login(userDTO);
-    }
-
-    @ApiIgnore
-    @GetMapping("/testUserConn")
-    public ApiResponse<Void> testUserConn() {
-        return ApiResponse.ok();
     }
 
     @ApiOperation("用户注册")
@@ -155,18 +149,41 @@ public class UserController {
         return userService.getAStoreCoupon(userCouponDTO);
     }
 
+    @ApiOperation("根据购物车id获取下单确认信息")
+    @PostMapping("/getConfirmOrderData")
+    public ApiResponse<?> getConfirmOrderData(@RequestBody JSONObject jsonObject) {
+        return userService.getConfirmOrderData(jsonObject);
+    }
 
+    @ApiOperation("确认订单时获取可用优惠券")
+    @PostMapping("/getCanUseCoupon")
+    public ApiResponse<?> getCanUseCoupon(@RequestBody @Validated OrderCouponParam orderCouponParam) {
+        return userService.getCanUseCoupon(orderCouponParam);
+    }
 
+    @ApiOperation("用户中心获取可用优惠券")
+    @GetMapping("/getCanUseCouponByUid")
+    public ApiResponse<?> getCanUseCouponByUid(Integer userId) {
+        return userService.getCanUseCouponByUid(userId);
+    }
 
+    @ApiOperation("用户中心获取待生效优惠券")
+    @GetMapping("/getNotStartCouponByUid")
+    public ApiResponse<?> getNotStartCouponByUid(Integer userId) {
+        return userService.getNotStartCouponByUid(userId);
+    }
 
+    @ApiOperation("用户中心获取过期优惠券")
+    @GetMapping("/getEndCouponByUid")
+    public ApiResponse<?> getEndCouponByUid(Integer userId) {
+        return userService.getEndCouponByUid(userId);
+    }
 
-
-
-
-
-
-
-
+    @ApiOperation("用户删除已过期优惠券")
+    @GetMapping("/delEndCoupon")
+    public ApiResponse<Void> delEndCoupon(Integer couponOwnId) {
+        return userService.delEndCoupon(couponOwnId);
+    }
 
 
 
