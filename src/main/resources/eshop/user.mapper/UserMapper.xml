@@ -84,6 +84,10 @@
             </foreach>
     </select>
 
+    <select id="getAConfirmOrderData" resultType="com.yc.eshop.common.vo.ConfirmOrderVO">
+        select title,price,picture,item.store_id,name,logo from item,store where item.store_id=store.store_id and item_id=#{itemId} and item.store_id=store.store_id
+    </select>
+
     <select id="getStoreIdByCartId" parameterType="integer" resultType="integer">
         select item.store_id from cart,item where cart.item_id=item.item_id and cart.cart_id=#{cartId}
     </select>

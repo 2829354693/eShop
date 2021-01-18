@@ -2,9 +2,7 @@ package com.yc.eshop.user.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.yc.eshop.common.dto.JoinCartParam;
-import com.yc.eshop.common.dto.OrderCouponParam;
-import com.yc.eshop.common.dto.PasswordParam;
+import com.yc.eshop.common.dto.*;
 import com.yc.eshop.common.entity.Address;
 import com.yc.eshop.common.entity.Cart;
 import com.yc.eshop.common.entity.User;
@@ -346,16 +344,31 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (Objects.isNull(confirmOrderData)) {
             return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
         }
-        confirmOrderData.forEach(confirmOrderVO -> {
-            confirmOrderVO.setPicture(pictureNginxHost + confirmOrderVO.getPicture());
-            confirmOrderVO.setLogo(pictureNginxHost + confirmOrderVO.getLogo());
-            confirmOrderVO.setCouponOwnId(-1);
-            confirmOrderVO.setDiscount(0);
-            confirmOrderVO.setSatisfy(0);
-            confirmOrderVO.setEndTimeStr("");
-            confirmOrderVO.setRemark("");
-        });
+        confirmOrderData.forEach(this::changeOrderData);
         return ApiResponse.ok(confirmOrderData);
+    }
+
+    @Override
+    public ApiResponse<?> getAConfirmOrderData(IidAmountParam iidAmountParam) {
+        Integer itemId = iidAmountParam.getItemId();
+        Integer amount = iidAmountParam.getAmount();
+        ConfirmOrderVO orderData = userMapper.getAConfirmOrderData(itemId);
+        if (Objects.isNull(orderData)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "查询结果为空！");
+        }
+        changeOrderData(orderData);
+        orderData.setAmount(amount);
+        return ApiResponse.ok(orderData);
+    }
+
+    private void changeOrderData(ConfirmOrderVO confirmOrderVO) {
+        confirmOrderVO.setPicture(pictureNginxHost + confirmOrderVO.getPicture());
+        confirmOrderVO.setLogo(pictureNginxHost + confirmOrderVO.getLogo());
+        confirmOrderVO.setCouponOwnId(-1);
+        confirmOrderVO.setDiscount(0);
+        confirmOrderVO.setSatisfy(0);
+        confirmOrderVO.setEndTimeStr("");
+        confirmOrderVO.setRemark("");
     }
 
     @Override
@@ -377,6 +390,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             canUseCouponVO.setEndTimeStr(sdf.format(canUseCouponVO.getEndTime()));
         });
         return ApiResponse.ok(canUseCoupons);
+    }
+
+    @Override
+    public ApiResponse<?> getCanUseCouponFrom2(OrderCouponV2Param orderCouponV2Param) {
+        List<CouponVO> couponVOList = userMapper.getCanUseCoupon(orderCouponV2Param.getUserId(), orderCouponV2Param.getOrderPrice(), orderCouponV2Param.getStoreId());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        couponVOList.forEach(couponVO -> {
+            couponVO.setStartTimeStr(sdf.format(couponVO.getStartTime()));
+            couponVO.setEndTimeStr(sdf.format(couponVO.getEndTime()));
+        });
+        return ApiResponse.ok(couponVOList);
     }
 
     @Override

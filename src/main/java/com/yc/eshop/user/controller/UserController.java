@@ -1,8 +1,6 @@
 package com.yc.eshop.user.controller;
 
-import com.yc.eshop.common.dto.JoinCartParam;
-import com.yc.eshop.common.dto.OrderCouponParam;
-import com.yc.eshop.common.dto.PasswordParam;
+import com.yc.eshop.common.dto.*;
 import com.yc.eshop.common.entity.Address;
 import com.yc.eshop.common.entity.Cart;
 import com.yc.eshop.common.entity.User;
@@ -155,10 +153,22 @@ public class UserController {
         return userService.getConfirmOrderData(jsonObject);
     }
 
-    @ApiOperation("确认订单时获取可用优惠券")
+    @ApiOperation("根据商品id获取下单确认信息")
+    @PostMapping("/getAConfirmOrderData")
+    public ApiResponse<?> getAConfirmOrderData(@RequestBody @Validated IidAmountParam iidAmountParam) {
+        return userService.getAConfirmOrderData(iidAmountParam);
+    }
+
+    @ApiOperation("从购物车确认订单时获取可用优惠券")
     @PostMapping("/getCanUseCoupon")
     public ApiResponse<?> getCanUseCoupon(@RequestBody @Validated OrderCouponParam orderCouponParam) {
         return userService.getCanUseCoupon(orderCouponParam);
+    }
+
+    @ApiOperation("从商品详情页确认订单时获取可用优惠券")
+    @PostMapping("/getCanUseCouponFrom2")
+    public ApiResponse<?> getCanUseCouponFrom2(@RequestBody @Validated OrderCouponV2Param orderCouponV2Param) {
+        return userService.getCanUseCouponFrom2(orderCouponV2Param);
     }
 
     @ApiOperation("用户中心获取可用优惠券")

@@ -1,9 +1,7 @@
 package com.yc.eshop.user.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.yc.eshop.common.dto.JoinCartParam;
-import com.yc.eshop.common.dto.OrderCouponParam;
-import com.yc.eshop.common.dto.PasswordParam;
+import com.yc.eshop.common.dto.*;
 import com.yc.eshop.common.entity.Address;
 import com.yc.eshop.common.entity.Cart;
 import com.yc.eshop.common.entity.User;
@@ -15,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 
 /**
  * @author 余聪
@@ -63,7 +60,11 @@ public interface UserService extends IService<User> {
 
     ApiResponse<?> getConfirmOrderData(JSONObject jsonObject);
 
+    ApiResponse<?> getAConfirmOrderData(IidAmountParam iidAmountParam);
+
     ApiResponse<?> getCanUseCoupon(OrderCouponParam orderCouponParam);
+
+    ApiResponse<?> getCanUseCouponFrom2(OrderCouponV2Param orderCouponV2Param);
 
     ApiResponse<?> getCanUseCouponByUid(Integer userId);
 

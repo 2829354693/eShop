@@ -47,6 +47,8 @@ public interface UserMapper extends BaseMapper<User> {
 
     List<ConfirmOrderVO> getConfirmOrderData(List<Integer> cartIds);
 
+    ConfirmOrderVO getAConfirmOrderData(Integer itemId);
+
     Integer getStoreIdByCartId(Integer cartId);
 
     List<CouponVO> getCanUseCoupon(Integer userId, Integer orderPrice, Integer storeId);
