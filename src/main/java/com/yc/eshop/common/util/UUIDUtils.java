@@ -1,5 +1,7 @@
 package com.yc.eshop.common.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -36,5 +38,13 @@ public class UUIDUtils {
         }
 
         return str.toString();
+    }
+
+    /**
+     * 生成订单号id
+     */
+    public static String getOrderId() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        return sdf.format(new Date()) + getUUID(4);
     }
 }

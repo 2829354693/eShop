@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yc.eshop.user.mapper.OrderMapper">
+
+    <select id="getItemByIid" parameterType="integer" resultType="com.yc.eshop.common.entity.Item">
+        select * from item where item_id=#{itemId}
+    </select>
+
+    <insert id="insertOrder" parameterType="com.yc.eshop.common.entity.Order">
+        insert into orders(order_id, order_name, totalPrice, time, amount, state, remark, coupon_own_id, user_id, address_id, item_id) VALUE
+            (#{orderId},#{orderName},#{totalPrice},#{time},#{amount},#{state},#{remark},#{couponOwnId},#{userId},#{addressId},#{itemId})
+    </insert>
+
+    <select id="getDiscountByCouponOwnId" parameterType="integer" resultType="integer">
+        select coupon_store.discount
+        from coupon_user,coupon_store where coupon_user.coupon_id=coupon_store.coupon_id and coupon_user.coupon_own_id=#{couponOwnId};
+    </select>
+
+    <select id="getItemCartVOByCartId" parameterType="integer" resultType="com.yc.eshop.common.vo.ItemCartVO">
+        select item.item_id,title,price,amount
+        from cart,item where cart.item_id=item.item_id and cart.cart_id=#{cartId};
+    </select>
+
+    <insert id="insertManyOrders" parameterType="List">
+        insert into orders(order_id, order_name, totalPrice, time, amount, state, remark, coupon_own_id, user_id, address_id, item_id) values
+            <foreach collection="orders" item="order" separator="," close=";">
+                (#{order.orderId},#{})
+            </foreach>
+    </insert>
+
+</mapper>
