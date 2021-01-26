@@ -63,7 +63,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     void delEndCoupon(Integer couponOwnId);
 
-
+    Integer getCoinByUid(Integer userId);
 
 
 

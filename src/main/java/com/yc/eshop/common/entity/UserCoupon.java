@@ -20,6 +20,8 @@ public class UserCoupon implements Serializable {
 
     private Integer couponId;
 
+    private Integer isUse;
+
     private Integer userId;
 
 }

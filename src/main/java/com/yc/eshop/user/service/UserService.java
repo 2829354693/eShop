@@ -74,7 +74,7 @@ public interface UserService extends IService<User> {
 
     ApiResponse<Void> delEndCoupon(Integer couponOwnId);
 
-
+    ApiResponse<?> getCoinByUid(Integer userId);
 
 
 

@@ -4,15 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.yc.eshop.user.mapper.UserMapper">
-<!--    <resultMap id="baseColumn" type="com.yc.eshop.common.entity.User">-->
-<!--        <id column="user_id" property="userId"/>-->
-<!--        <result column="account" property="account"/>-->
-<!--        <result column="password" property="password"/>-->
-<!--        <result column="nickname" property="nickname"/>-->
-<!--        <result column="sex" property="sex"/>-->
-<!--        <result column="head_pic" property="headPic"/>-->
-<!--        <result column="coin" property="coin"/>-->
-<!--    </resultMap>-->
 
     <insert id="insertUser" parameterType="com.yc.eshop.common.entity.User">
         insert into user(account, password, salt, nickname, sex, head_pic, coin) VALUES
@@ -98,7 +89,7 @@
         and coupon_user.user_id = #{param1}
         and satisfy &lt; #{param2}
         and coupon_store.store_id=#{param3}
-        and start_time &lt; NOW() and end_time > NOW() and coupon_store.state=1
+        and start_time &lt; NOW() and end_time > NOW() and coupon_store.state=1 and is_use=0
     </select>
 
     <select id="getCanUseCouponByUid" parameterType="integer" resultType="com.yc.eshop.common.vo.CouponExVO">
@@ -107,7 +98,7 @@
         where coupon_user.coupon_id=coupon_store.coupon_id
         and coupon_store.store_id=store.store_id
         and coupon_user.user_id=#{userId}
-        and start_time &lt; NOW() and end_time>NOW() and coupon_store.state=1
+        and start_time &lt; NOW() and end_time>NOW() and coupon_store.state=1 and is_use=0
     </select>
 
     <select id="getNotStartCouponByUid" parameterType="integer" resultType="com.yc.eshop.common.vo.CouponExVO">
@@ -136,7 +127,10 @@
         delete from coupon_user where coupon_own_id=#{couponOwnId}
     </delete>
 
-
+    <select id="getCoinByUid" parameterType="integer" resultType="integer">
+        select coin
+        from user where user_id=#{userId};
+    </select>
 
 
 

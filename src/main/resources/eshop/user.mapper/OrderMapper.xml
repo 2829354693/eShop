@@ -10,7 +10,7 @@
     </select>
 
     <insert id="insertOrder" parameterType="com.yc.eshop.common.entity.Order">
-        insert into orders(order_id, order_name, totalPrice, time, amount, state, remark, coupon_own_id, user_id, address_id, item_id) VALUE
+        insert into orders(order_id, order_name, totalPrice, create_time, amount, state, remark, coupon_own_id, user_id, address_id, item_id) VALUE
             (#{orderId},#{orderName},#{totalPrice},#{time},#{amount},#{state},#{remark},#{couponOwnId},#{userId},#{addressId},#{itemId})
     </insert>
 
@@ -25,10 +25,56 @@
     </select>
 
     <insert id="insertManyOrders" parameterType="List">
-        insert into orders(order_id, order_name, totalPrice, time, amount, state, remark, coupon_own_id, user_id, address_id, item_id) values
+        insert into orders(order_id, order_name, totalPrice, create_time, amount, state, remark, coupon_own_id, user_id, address_id, item_id) values
             <foreach collection="orders" item="order" separator="," close=";">
-                (#{order.orderId},#{})
+                (#{order.orderId},#{order.orderName},#{order.totalPrice},#{order.time},#{order.amount},#{order.state},#{order.remark},#{order.couponOwnId},#{order.userId},#{order.addressId},#{order.itemId})
             </foreach>
     </insert>
+
+    <select id="getTotalPrice" parameterType="List" resultType="integer">
+        select totalPrice from orders where order_id in
+        <foreach collection="list" item="orderId" open="(" close=")" separator=",">
+            #{orderId}
+        </foreach>
+    </select>
+
+    <select id="getOrdersByOid" parameterType="List" resultType="com.yc.eshop.common.entity.Order">
+        select * from orders where order_id in
+        <foreach collection="list" item="orderId" open="(" close=")" separator=",">
+            #{orderId}
+        </foreach>
+    </select>
+
+    <update id="updateItemSalesAndInventory">
+        update item set sales=sales+#{param2}, inventory=inventory-#{param2} where item_id=#{param1}
+    </update>
+
+    <update id="updateOrderPay">
+        update orders set pay_time=NOW(), state=2, pay_way=#{param2} where order_id=#{param1}
+    </update>
+
+    <delete id="deleteCart" parameterType="List">
+        delete from cart where cart_id in
+            <foreach collection="list" item="cartId" open="(" close=")" separator=",">
+                #{cartId}
+            </foreach>
+    </delete>
+
+    <update id="updateCouponUserState" parameterType="List">
+        update coupon_user set is_use=1 where coupon_own_id in
+        <foreach collection="list" item="couponOwnId" open="(" close=")" separator=",">
+            #{couponOwnId}
+        </foreach>
+    </update>
+
+
+
+
+
+
+
+
+
+
 
 </mapper>

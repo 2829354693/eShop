@@ -7,6 +7,10 @@ spring:
     multipart:
       max-file-size: 5MB
       max-request-size: 5MB
+  mvc:
+    view:
+      prefix: /
+      suffix: .html
 
 server:
   port: 8080
@@ -21,3 +25,4 @@ user-token-expire: 12
 
 logging:
   config: classpath:logback-spring.xml
+

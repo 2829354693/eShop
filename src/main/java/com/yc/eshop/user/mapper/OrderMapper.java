@@ -25,5 +25,23 @@ public interface OrderMapper {
 
     void insertManyOrders(@Param("orders") List<Order> orders);
 
+    List<Integer> getTotalPrice(List<String> orderIds);
+
+    List<Order> getOrdersByOid(List<String> orderIds);
+
+    void updateItemSalesAndInventory(Integer itemId, Integer salesNum);
+
+    void updateOrderPay(String orderId, Integer payWay);
+
+    void deleteCart(List<Integer> cartIds);
+
+    void updateCouponUserState(List<Integer> couponOwnIds);
+
+
+
+
+
+
+
 
 }

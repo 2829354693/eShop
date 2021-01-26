@@ -45,6 +45,6 @@ public class UUIDUtils {
      */
     public static String getOrderId() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-        return sdf.format(new Date()) + getUUID(4);
+        return sdf.format(new Date()) + ((int)(Math.random() * 9000) + 1000);
     }
 }

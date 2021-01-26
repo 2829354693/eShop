@@ -195,7 +195,11 @@ public class UserController {
         return userService.delEndCoupon(couponOwnId);
     }
 
-
+    @ApiOperation("根据用户id获取账户余额")
+    @GetMapping("/getCoinByUid")
+    public ApiResponse<?> getCoinByUid(Integer userId) {
+        return userService.getCoinByUid(userId);
+    }
 
 
 

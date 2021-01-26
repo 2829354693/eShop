@@ -35,6 +35,8 @@ public class Order implements Serializable {
 
     private String remark;
 
+    private Integer payWay;
+
     private Integer couponOwnId;
 
     private Integer userId;

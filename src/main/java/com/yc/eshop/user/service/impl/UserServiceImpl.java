@@ -436,6 +436,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return ApiResponse.ok();
     }
 
+    @Override
+    public ApiResponse<?> getCoinByUid(Integer userId) {
+        if (Objects.isNull(userId)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "用户id为空！");
+        }
+        Integer coin = userMapper.getCoinByUid(userId);
+        return ApiResponse.ok(coin);
+    }
+
     private List<CouponExVO> date2String(List<CouponExVO> couponExVOS) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         couponExVOS.forEach(couponExVO -> {
