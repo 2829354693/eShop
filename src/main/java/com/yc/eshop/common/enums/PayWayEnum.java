@@ -8,7 +8,7 @@ public enum PayWayEnum {
 
     private final Integer payWay;
 
-    private PayWayEnum(Integer payWay) {
+    PayWayEnum(Integer payWay) {
         this.payWay = payWay;
     }
 

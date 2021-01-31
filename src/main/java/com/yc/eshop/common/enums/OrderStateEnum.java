@@ -18,7 +18,7 @@ public enum OrderStateEnum {
 
     private final Integer orderState;
 
-    private OrderStateEnum(Integer orderState) {
+    OrderStateEnum(Integer orderState) {
         this.orderState = orderState;
     }
 

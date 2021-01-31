@@ -7,14 +7,19 @@ import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.yc.eshop.common.dto.CreateOrderParam;
 import com.yc.eshop.common.dto.OrderParam;
 import com.yc.eshop.common.dto.PayOrderParam;
+import com.yc.eshop.common.dto.RefundApplyParam;
 import com.yc.eshop.common.entity.Item;
 import com.yc.eshop.common.entity.Order;
+import com.yc.eshop.common.entity.RefundApply;
 import com.yc.eshop.common.enums.OrderStateEnum;
 import com.yc.eshop.common.enums.PayWayEnum;
+import com.yc.eshop.common.enums.RefundEnum;
 import com.yc.eshop.common.response.ApiResponse;
 import com.yc.eshop.common.response.ResponseCode;
 import com.yc.eshop.common.util.UUIDUtils;
 import com.yc.eshop.common.vo.ItemCartVO;
+import com.yc.eshop.common.vo.OrderDetailVO;
+import com.yc.eshop.common.vo.OrderInfoVO;
 import com.yc.eshop.user.mapper.OrderMapper;
 import com.yc.eshop.user.mapper.UserMapper;
 import com.yc.eshop.user.service.OrderService;
@@ -23,7 +28,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,6 +46,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     OrderMapper orderMapper;
+
+    @Value("${picture-nginx-host}")
+    private String pictureNginxHost;
 
     @Autowired
     UserMapper userMapper;
@@ -57,6 +67,8 @@ public class OrderServiceImpl implements OrderService {
     //支付宝同步通知路径,也就是当付款完毕后跳转本项目的页面,可以不是公网地址
     @Value("${return-url}")
     private String RETURN_URL;
+
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override
     public ApiResponse<?> createOrder(CreateOrderParam createOrderParam) {
@@ -225,6 +237,258 @@ public class OrderServiceImpl implements OrderService {
             orderMapper.updateItemSalesAndInventory(order.getItemId(), order.getAmount());
             orderMapper.updateOrderPay(order.getOrderId(), PayWayEnum.ALIPAY.getPayWay());
         }
+    }
+
+    @Override
+    public ApiResponse<?> getWaitPayOrderInfo(Integer userId) {
+        if (Objects.isNull(userId)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        List<OrderInfoVO> orderInfos = orderMapper.getOrderInfos(userId, OrderStateEnum.WAIT_PAY.getOrderState());
+        if (Objects.isNull(orderInfos)) {
+            return ApiResponse.ok();
+        }
+
+        for (OrderInfoVO order:orderInfos) {
+            order.setPicture(pictureNginxHost + order.getPicture());
+            order.setLogo(pictureNginxHost + order.getLogo());
+            if (Objects.isNull(order.getDiscount())) {
+                order.setDiscount(0);
+            }
+        }
+
+        return ApiResponse.ok(orderInfos);
+    }
+
+    @Override
+    public ApiResponse<?> getWaitPayOrderDetailInfo(String orderId) {
+        if (Objects.isNull(orderId)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+
+        OrderDetailVO order = orderMapper.getWaitPayOrderDetailInfo(orderId);
+        handlePicPathAndDate(order);
+        return ApiResponse.ok(order);
+    }
+
+    private void handlePicPathAndDate(OrderDetailVO order) {
+        order.setPicture(pictureNginxHost + order.getPicture());
+        order.setLogo(pictureNginxHost + order.getLogo());
+        order.setCreateTimeStr(sdf.format(order.getCreateTime()));
+        if (Objects.isNull(order.getDiscount())) {
+            order.setDiscount(0);
+        }
+    }
+
+    private void handlePicPath(List<OrderInfoVO> orders) {
+        orders.forEach(order -> {
+            order.setPicture(pictureNginxHost + order.getPicture());
+            order.setLogo(pictureNginxHost + order.getLogo());
+            if (Objects.isNull(order.getDiscount())) {
+                order.setDiscount(0);
+            }
+        });
+    }
+
+    @Override
+    public ApiResponse<?> delOrder(String orderId) {
+        if (Objects.isNull(orderId)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+
+        Integer couponOwnId = orderMapper.getCouponOwnIdByOid(orderId);
+
+        if (couponOwnId != -1) {
+            orderMapper.updateCouponCanUse(couponOwnId);
+        }
+
+        orderMapper.deleteOrder(orderId);
+        return ApiResponse.ok();
+    }
+
+    @Override
+    public ApiResponse<?> delWaitDeliverOrder(String orderId) {
+        if (Objects.isNull(orderId)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        Integer couponOwnId = orderMapper.getCouponOwnIdByOid(orderId);
+        if (couponOwnId != -1) {
+            orderMapper.updateCouponCanUse(couponOwnId);
+        }
+        Integer userId = orderMapper.getUidByOid(orderId);
+        Integer price = orderMapper.getPriceByOid(orderId);
+        orderMapper.refundByUid(userId, price);
+        orderMapper.deleteOrder(orderId);
+        return ApiResponse.ok();
+    }
+
+    @Override
+    public ApiResponse<?> getWaitDeliverOrderInfo(Integer userId) {
+        if (Objects.isNull(userId)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        List<OrderInfoVO> orders = orderMapper.getOrderInfos(userId, OrderStateEnum.WAIT_DELIVER.getOrderState());
+        if (Objects.isNull(orders)) {
+            return ApiResponse.ok();
+        }
+        handlePicPath(orders);
+        return ApiResponse.ok(orders);
+    }
+
+    @Override
+    public ApiResponse<?> getWaitDeliverOrderDetailInfo(String orderId) {
+        if (Objects.isNull(orderId)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+
+        OrderDetailVO order = orderMapper.getWaitDeliverOrderDetailInfo(orderId);
+        handlePicPathAndDate(order);
+        order.setPayTimeStr(sdf.format(order.getPayTime()));
+
+        return ApiResponse.ok(order);
+    }
+
+    @Override
+    public ApiResponse<?> getWaitReceiveOrderInfo(Integer userId) {
+        if (Objects.isNull(userId)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        List<OrderInfoVO> orders = orderMapper.getOrderInfos(userId, OrderStateEnum.WAIT_RECEIVE.getOrderState());
+        if (Objects.isNull(orders)) {
+            return ApiResponse.ok();
+        }
+        handlePicPath(orders);
+        return ApiResponse.ok(orders);
+    }
+
+    @Override
+    public ApiResponse<?> getWaitReceiveOrderDetailInfo(String orderId) {
+        if (Objects.isNull(orderId)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+
+        OrderDetailVO order = orderMapper.getWaitReceiveOrderDetailInfo(orderId);
+        handlePicPathAndDate(order);
+        order.setPayTimeStr(sdf.format(order.getPayTime()));
+        order.setDeliverTimeStr(sdf.format(order.getDeliverTime()));
+
+        return ApiResponse.ok(order);
+    }
+
+    @Override
+    public ApiResponse<?> confirmReceive(String orderId) {
+        if (Objects.isNull(orderId)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        orderMapper.updateOrderState(orderId, OrderStateEnum.FINISH.getOrderState());
+        orderMapper.updateOrderFinishTime(orderId);
+        return ApiResponse.ok();
+    }
+
+    @Override
+    public ApiResponse<?> getFinishOrderInfo(Integer userId) {
+        if (Objects.isNull(userId)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        List<OrderInfoVO> orders = orderMapper.getFinishOrderInfo(userId);
+        if (Objects.isNull(orders)) {
+            return ApiResponse.ok();
+        }
+        handlePicPath(orders);
+        return ApiResponse.ok(orders);
+    }
+
+    @Override
+    public ApiResponse<?> getFinishOrderDetailInfo(String orderId) {
+        if (Objects.isNull(orderId)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        OrderDetailVO order = orderMapper.getFinishOrderDetailInfo(orderId);
+        handlePicPathAndDate(order);
+        order.setPayTimeStr(sdf.format(order.getPayTime()));
+        order.setDeliverTimeStr(sdf.format(order.getDeliverTime()));
+        order.setFinishTimeStr(sdf.format(order.getFinishTime()));
+
+        return ApiResponse.ok(order);
+    }
+
+    @Override
+    public ApiResponse<?> refundApply(RefundApplyParam refundApplyParam) {
+        String orderId = refundApplyParam.getOrderId();
+        String reason = refundApplyParam.getReason();
+
+        orderMapper.updateOrderRefundCheck(orderId);
+
+        RefundApply refundApply = RefundApply.builder()
+                .orderId(orderId)
+                .reason(reason)
+                .status(RefundEnum.WAIT_CHECK.getRefundStatus())
+                .build();
+        orderMapper.insertRefundApply(refundApply);
+        return ApiResponse.ok();
+    }
+
+    @Override
+    public ApiResponse<?> getRefundOrderInfo(Integer userId) {
+        if (Objects.isNull(userId)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        List<OrderInfoVO> orders = orderMapper.getRefundOrderInfo(userId);
+        if (Objects.isNull(orders)) {
+            return ApiResponse.ok();
+        }
+        handlePicPath(orders);
+        return ApiResponse.ok(orders);
+    }
+
+    @Override
+    public ApiResponse<?> getRefundOrderDetailInfo(String orderId) {
+        if (Objects.isNull(orderId)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        OrderDetailVO order = orderMapper.getRefundOrderDetailInfo(orderId);
+        handlePicPathAndDate(order);
+        order.setPayTimeStr(sdf.format(order.getPayTime()));
+        order.setDeliverTimeStr(sdf.format(order.getDeliverTime()));
+        order.setFinishTimeStr(sdf.format(order.getFinishTime()));
+        order.setRefundTimeStr(sdf.format(order.getRefundTime()));
+
+        return ApiResponse.ok(order);
+    }
+
+    @Override
+    public ApiResponse<?> getAllOrderInfo(Integer userId) {
+        if (Objects.isNull(userId)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        List<OrderInfoVO> orders = orderMapper.getAllOrderInfo(userId);
+        if (Objects.isNull(orders)) {
+            return ApiResponse.ok();
+        }
+        handlePicPath(orders);
+        return ApiResponse.ok(orders);
+    }
+
+    @Override
+    public ApiResponse<?> getOrderDetailInfo(String orderId) {
+        if (Objects.isNull(orderId)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        OrderDetailVO order = orderMapper.getRefundOrderDetailInfo(orderId);
+        handlePicPathAndDate(order);
+        if (Objects.nonNull(order.getPayTime())) {
+            order.setPayTimeStr(sdf.format(order.getPayTime()));
+        }
+        if (Objects.nonNull(order.getDeliverTime())) {
+            order.setDeliverTimeStr(sdf.format(order.getDeliverTime()));
+        }
+        if (Objects.nonNull(order.getFinishTime())) {
+            order.setFinishTimeStr(sdf.format(order.getFinishTime()));
+        }
+        if (Objects.nonNull(order.getRefundTime())) {
+            order.setRefundTimeStr(sdf.format(order.getRefundTime()));
+        }
+        return ApiResponse.ok(order);
     }
 
 

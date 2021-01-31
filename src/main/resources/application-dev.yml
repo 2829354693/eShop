@@ -49,6 +49,8 @@ spring:
 
 picture-nginx-host: http://127.0.0.1:80/
 
-user-head-pic-save-path: E:\\upload\\user_head\\
+user-head-pic-save-path: D:\\upload\\user_head\\
+
+comment-pic-save-path: D:\\upload\\comment_pic\\
 
 return-url: http://127.0.0.1:8080/returnUrl

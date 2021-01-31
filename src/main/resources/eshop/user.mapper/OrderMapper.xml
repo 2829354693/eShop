@@ -67,10 +67,158 @@
         </foreach>
     </update>
 
+    <select id="getWaitPayOrderInfo" parameterType="integer" resultType="com.yc.eshop.common.vo.OrderInfoVO">
+        select order_id,orders.item_id,title,price,picture,item.state as itemState,store.store_id,logo,name,orders.state,amount,discount from item,store,orders
+        left join coupon_user on orders.coupon_own_id=coupon_user.coupon_own_id
+        left join coupon_store on coupon_user.coupon_id=coupon_store.coupon_id
+        where item.store_id=store.store_id and orders.item_id=item.item_id
+          and orders.user_id=#{userId}
+          and orders.state=1
+    </select>
 
+    <select id="getWaitPayOrderDetailInfo" parameterType="string" resultType="com.yc.eshop.common.vo.OrderDetailVO">
+        select order_id,orders.item_id,title,price,picture,item.state as itemState,store.store_id,logo,name,orders.state,amount,create_time,discount,satisfy,receive_username,receive_telephone,address,remark
+        from item,store,address,orders
+        left join coupon_user on orders.coupon_own_id=coupon_user.coupon_own_id
+        left join coupon_store on coupon_user.coupon_id=coupon_store.coupon_id
+        where item.store_id=store.store_id and orders.item_id=item.item_id and address.address_id=orders.address_id
+          and orders.order_id=#{orderId}
+    </select>
 
+    <select id="getCouponOwnIdByOid" resultType="integer" parameterType="string">
+        select coupon_own_id from orders where order_id=#{orderId}
+    </select>
 
+    <update id="updateCouponCanUse" parameterType="integer">
+        update coupon_user set is_use=0 where coupon_own_id=#{couponOwnId}
+    </update>
 
+    <delete id="deleteOrder" parameterType="string">
+        delete from orders where order_id=#{orderId}
+    </delete>
+
+    <select id="getWaitDeliverOrderInfo" parameterType="integer" resultType="com.yc.eshop.common.vo.OrderInfoVO">
+        select order_id,orders.item_id,title,price,picture,item.state as itemState,store.store_id,logo,name,orders.state,amount,discount from item,store,orders
+        left join coupon_user on orders.coupon_own_id=coupon_user.coupon_own_id
+        left join coupon_store on coupon_user.coupon_id=coupon_store.coupon_id
+        where item.store_id=store.store_id and orders.item_id=item.item_id
+        and orders.user_id=#{userId}
+        and orders.state=2
+    </select>
+
+    <select id="getWaitDeliverOrderDetailInfo" parameterType="string" resultType="com.yc.eshop.common.vo.OrderDetailVO">
+        select order_id,orders.item_id,title,price,picture,item.state as itemState,store.store_id,logo,name,orders.state,amount,create_time,pay_time,discount,satisfy,receive_username,receive_telephone,address,remark
+        from item,store,address,orders
+        left join coupon_user on orders.coupon_own_id=coupon_user.coupon_own_id
+        left join coupon_store on coupon_user.coupon_id=coupon_store.coupon_id
+        where item.store_id=store.store_id and orders.item_id=item.item_id and address.address_id=orders.address_id
+        and orders.order_id=#{orderId}
+    </select>
+
+    <select id="getUidByOid" parameterType="string" resultType="integer">
+        select user_id from orders where order_id=#{orderId}
+    </select>
+
+    <select id="getPriceByOid" parameterType="string" resultType="integer">
+        select totalPrice from orders where order_id=#{orderId}
+    </select>
+
+    <update id="refundByUid">
+        update user set coin=coin+#{param2} where user_id=#{param1}
+    </update>
+
+    <select id="getWaitReceiveOrderInfo" parameterType="integer" resultType="com.yc.eshop.common.vo.OrderInfoVO">
+        select order_id,orders.item_id,title,price,picture,item.state as itemState,store.store_id,logo,name,orders.state,amount,discount from item,store,orders
+        left join coupon_user on orders.coupon_own_id=coupon_user.coupon_own_id
+        left join coupon_store on coupon_user.coupon_id=coupon_store.coupon_id
+        where item.store_id=store.store_id and orders.item_id=item.item_id
+        and orders.user_id=#{userId}
+        and orders.state=3
+    </select>
+
+    <select id="getOrderInfos" resultType="com.yc.eshop.common.vo.OrderInfoVO">
+        select order_id,orders.item_id,title,price,picture,item.state as itemState,store.store_id,logo,name,orders.state,amount,discount from item,store,orders
+        left join coupon_user on orders.coupon_own_id=coupon_user.coupon_own_id
+        left join coupon_store on coupon_user.coupon_id=coupon_store.coupon_id
+        where item.store_id=store.store_id and orders.item_id=item.item_id
+        and orders.user_id=#{param1}
+        and orders.state=#{param2}
+    </select>
+
+    <select id="getWaitReceiveOrderDetailInfo" parameterType="string" resultType="com.yc.eshop.common.vo.OrderDetailVO">
+        select order_id,orders.item_id,title,price,picture,item.state as itemState,store.store_id,logo,name,orders.state,amount,create_time,pay_time,deliver_time,discount,satisfy,receive_username,receive_telephone,address,remark
+        from item,store,address,orders
+        left join coupon_user on orders.coupon_own_id=coupon_user.coupon_own_id
+        left join coupon_store on coupon_user.coupon_id=coupon_store.coupon_id
+        where item.store_id=store.store_id and orders.item_id=item.item_id and address.address_id=orders.address_id
+        and orders.order_id=#{orderId}
+    </select>
+
+    <update id="updateOrderState">
+        update orders
+        set state = #{param2}
+        where order_id = #{param1};
+    </update>
+
+    <update id="updateOrderFinishTime" parameterType="string">
+        update orders
+        set finish_time = NOW(), is_refund_apply = 0
+        where order_id = #{orderId};
+    </update>
+
+    <select id="getFinishOrderInfo" parameterType="integer" resultType="com.yc.eshop.common.vo.OrderInfoVO">
+        select is_comment,is_refund_apply,order_id,orders.item_id,title,price,picture,item.state as itemState,store.store_id,logo,name,orders.state,amount,discount from item,store,orders
+            left join coupon_user on orders.coupon_own_id=coupon_user.coupon_own_id
+            left join coupon_store on coupon_user.coupon_id=coupon_store.coupon_id
+        where item.store_id=store.store_id and orders.item_id=item.item_id
+          and orders.user_id=#{userId}
+          and orders.state=4
+    </select>
+
+    <select id="getFinishOrderDetailInfo" parameterType="string" resultType="com.yc.eshop.common.vo.OrderDetailVO">
+        select order_id,orders.item_id,title,price,picture,item.state as itemState,store.store_id,logo,name,orders.state,amount,create_time,pay_time,deliver_time,finish_time,discount,satisfy,receive_username,receive_telephone,address,remark
+        from item,store,address,orders
+        left join coupon_user on orders.coupon_own_id=coupon_user.coupon_own_id
+        left join coupon_store on coupon_user.coupon_id=coupon_store.coupon_id
+        where item.store_id=store.store_id and orders.item_id=item.item_id and address.address_id=orders.address_id
+        and orders.order_id=#{orderId}
+    </select>
+
+    <update id="updateOrderRefundCheck" parameterType="string">
+        update orders set is_refund_apply=1 where order_id=#{orderId}
+    </update>
+
+    <insert id="insertRefundApply" parameterType="com.yc.eshop.common.entity.RefundApply">
+        insert into refund_apply(order_id, status, reason) VALUE
+        (#{orderId},#{status},#{reason})
+    </insert>
+
+    <select id="getRefundOrderInfo" parameterType="integer" resultType="com.yc.eshop.common.vo.OrderInfoVO">
+        select order_id,orders.item_id,title,price,picture,item.state as itemState,store.store_id,logo,name,orders.state,amount,discount from item,store,orders
+        left join coupon_user on orders.coupon_own_id=coupon_user.coupon_own_id
+        left join coupon_store on coupon_user.coupon_id=coupon_store.coupon_id
+        where item.store_id=store.store_id and orders.item_id=item.item_id
+        and orders.user_id=#{userId}
+        and orders.state=5
+    </select>
+
+    <select id="getRefundOrderDetailInfo" parameterType="string" resultType="com.yc.eshop.common.vo.OrderDetailVO">
+        select order_id,orders.item_id,title,price,picture,item.state as itemState,store.store_id,logo,name,orders.state,amount,create_time,pay_time,deliver_time,finish_time,refund_time,discount,satisfy,receive_username,receive_telephone,address,remark
+        from item,store,address,orders
+        left join coupon_user on orders.coupon_own_id=coupon_user.coupon_own_id
+        left join coupon_store on coupon_user.coupon_id=coupon_store.coupon_id
+        where item.store_id=store.store_id and orders.item_id=item.item_id and address.address_id=orders.address_id
+        and orders.order_id=#{orderId}
+    </select>
+
+    <select id="getAllOrderInfo" parameterType="integer" resultType="com.yc.eshop.common.vo.OrderInfoVO">
+        select is_comment,is_refund_apply,order_id,orders.item_id,title,price,picture,item.state as itemState,store.store_id,logo,name,orders.state,amount,discount from item,store,orders
+        left join coupon_user on orders.coupon_own_id=coupon_user.coupon_own_id
+        left join coupon_store on coupon_user.coupon_id=coupon_store.coupon_id
+        where item.store_id=store.store_id and orders.item_id=item.item_id
+          and orders.user_id=#{userId}
+        order by orders.state
+    </select>
 
 
 
