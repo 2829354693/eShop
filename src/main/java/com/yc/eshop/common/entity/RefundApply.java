@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @Builder
@@ -20,5 +21,9 @@ public class RefundApply implements Serializable {
     private Integer status;
 
     private String reason;
+
+    private Date insertTime;
+
+    private String insertTimeStr;
 
 }

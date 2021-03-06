@@ -35,6 +35,9 @@ dependencies {
     compile group: 'commons-collections', name: 'commons-collections', version: '3.2.2'
     compile group: 'commons-logging', name: 'commons-logging', version: '1.2'
     compile group: 'com.alipay.sdk', name: 'alipay-sdk-java', version: '4.10.97.ALL'
+    implementation group: 'com.github.pagehelper', name: 'pagehelper-spring-boot-starter', version: '1.2.10'
+    implementation group: 'com.github.jsqlparser', name: 'jsqlparser', version: '1.2'
+
 
     compile group: 'net.sf.json-lib', name: 'json-lib', version: '2.4', classifier: 'jdk15'
     implementation 'io.springfox:springfox-boot-starter:3.0.0'

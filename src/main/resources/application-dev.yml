@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://39.96.66.218:3306/eshop?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://81.69.40.132:3306/eshop?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
     username: root
-    password: huangfen123
+    password: Yucong123456
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 5
@@ -51,6 +51,12 @@ picture-nginx-host: http://127.0.0.1:80/
 
 user-head-pic-save-path: D:\\upload\\user_head\\
 
+store-logo-save-path: D:\\upload\\store_pic\\
+
 comment-pic-save-path: D:\\upload\\comment_pic\\
+
+item-pic-save-path: D:\\upload\\item_pic\\
+
+item-des-pic-save-path: D:\\upload\\item_des_pic\\
 
 return-url: http://127.0.0.1:8080/returnUrl

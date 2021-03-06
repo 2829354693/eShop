@@ -13,19 +13,15 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-/**
- * @author 余聪
- * @date 2020/10/16
- */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("user")
-public class User implements Serializable {
+@TableName("merchant")
+public class MerchantUser implements Serializable {
 
-    @TableId(value = "user_id", type = IdType.AUTO)
-    private Integer userId;
+    @TableId(value = "merchant_id", type = IdType.AUTO)
+    private Integer merchantId;
 
     @NotBlank
     @Pattern(regexp = "^1\\d{10}", message = "请输入正确的手机号")
@@ -39,10 +35,6 @@ public class User implements Serializable {
 
     private String nickname;
 
-    private String sex;
-
-    private String headPic;
-
-    private Integer coin;
+    private String token;
 
 }

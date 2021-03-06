@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yc.eshop.merchant.mapper.MerchantMapper">
+    <select id="getShopApplyState" parameterType="string" resultType="integer">
+        select state from shop_apply where apply_account=#{account}
+    </select>
+
+    <select id="getMerchantUserByAccount" parameterType="string" resultType="com.yc.eshop.common.entity.MerchantUser">
+        select merchant_id, account, password, salt, nickname from merchant where account=#{account}
+    </select>
+
+    <select id="getStoreDataByMid" parameterType="integer" resultType="com.yc.eshop.common.entity.Store">
+        select *
+        from store where merchant_id = #{merchantId}
+    </select>
+
+    <select id="getItemList" parameterType="com.yc.eshop.common.dto.SearchItemV2Param" resultType="com.yc.eshop.common.entity.Item">
+        select item_id,picture,title,type,price,inventory,sales,item.update_time,item.state
+        from item,store where item.store_id=store.store_id and store.merchant_id=#{merchantId}
+        <if test="title != null and title != ''">
+            and title like CONCAT('%',#{title},'%')
+        </if>
+        <if test="state != null">
+            and item.state = #{state}
+        </if>
+    </select>
+
+    <insert id="insertNewItem" parameterType="com.yc.eshop.common.entity.Item">
+        insert into item (title, type, picture, pictures, inventory, description, des_pic, sales, price, state,
+                          store_id)
+        value (#{title},#{type},#{picture},#{pictures},#{inventory},#{description},#{desPic},#{sales},#{price},#{state},#{storeId})
+    </insert>
+
+    <select id="getItemByIid" parameterType="integer" resultType="com.yc.eshop.common.entity.Item">
+        select *
+        from item where item_id=#{itemId}
+    </select>
+    
+    <update id="updateItem" parameterType="com.yc.eshop.common.entity.Item">
+        update item
+        set title = #{title},type=#{type},description=#{description},inventory=#{inventory},price=#{price}
+        where item_id=#{itemId}
+    </update>
+    
+    <update id="updateItemStateOff" parameterType="integer">
+        update item set state = 0 where item_id = #{itemId}
+    </update>
+
+    <update id="updateItemStateOn" parameterType="integer">
+        update item set state = 1 where item_id = #{itemId}
+    </update>
+    
+    <select id="getCouponList" parameterType="integer" resultType="com.yc.eshop.common.entity.StoreCoupon">
+        select coupon_id, discount, satisfy, start_time, end_time, coupon_store.state, coupon_store.store_id, coupon_store.insert_time
+        from coupon_store,store where coupon_store.store_id=store.store_id and store.merchant_id=#{merchantId}
+    </select>
+    
+    <update id="updateCouponState">
+        update coupon_store set state = #{param2} where coupon_id=#{param1}
+    </update>
+    
+    <insert id="insertStoreCoupon" parameterType="com.yc.eshop.common.entity.StoreCoupon">
+        insert into coupon_store(discount, satisfy, start_time, end_time, store_id) VALUE
+        (#{discount},#{satisfy},#{startTime},#{endTime},#{storeId})
+    </insert>
+
+    <select id="getOrderList" parameterType="com.yc.eshop.common.dto.SearchOrderParam" resultType="com.yc.eshop.common.vo.OrderVO">
+        select order_id, create_time, orders.state, remark,picture,title,nickname
+        from orders,item,user,store where orders.item_id=item.item_id and orders.user_id=user.user_id and item.store_id=store.store_id
+                                      and store.merchant_id=#{merchantId}
+        <if test="orderId != null and orderId != ''">
+            and order_id like CONCAT('%',#{orderId},'%')
+        </if>
+        <if test="state != null">
+            and orders.state = #{state}
+        </if>
+        <if test="itemTitle != null and itemTitle != ''">
+            and item.title like CONCAT('%',#{itemTitle},'%')
+        </if>
+        <if test="time != null and time.length != 0">
+            and create_time between #{startTime} and #{endTime}
+        </if>
+    </select>
+    
+    <update id="deliverByOid" parameterType="string">
+        update orders
+        set deliver_time = NOW(), state = 3
+        where order_id = #{orderId}
+    </update>
+    
+    <select id="getRefundApplyList" parameterType="com.yc.eshop.common.dto.SearchOrderParam" resultType="com.yc.eshop.common.entity.RefundApply">
+        select refund_id,refund_apply.order_id,status,reason,refund_apply.insert_time
+        from refund_apply,orders,item,store
+        where refund_apply.order_id=orders.order_id and orders.item_id=item.item_id
+        and item.store_id=store.store_id and store.merchant_id=#{merchantId}
+        <if test="orderId != null and orderId != ''">
+            and refund_apply.order_id like CONCAT('%',#{orderId},'%')
+        </if>
+        <if test="state != null">
+            and refund_apply.status = #{state}
+        </if>
+        <if test="time != null and time.length != 0">
+            and refund_apply.insert_time between #{startTime} and #{endTime}
+        </if>
+    </select>
+
+    <update id="updateRefundApplyStatus" parameterType="integer">
+        update refund_apply set status = #{param2} where refund_id = #{param1}
+    </update>
+
+    <update id="updateOrderRefundConsent" parameterType="integer">
+        update orders,refund_apply set refund_time=NOW(), state=5, is_refund_apply=3
+        where refund_apply.order_id=orders.order_id and refund_apply.refund_id=#{refundId}
+    </update>
+
+    <select id="getUserIdTotalPriceByRefundId" resultType="com.yc.eshop.common.entity.Order">
+        select totalPrice,user_id
+        from refund_apply,orders where refund_apply.order_id=orders.order_id
+        and refund_id=#{refundId}
+    </select>
+
+    <update id="updateUserCoin">
+        update user set coin=coin+#{param2} where user_id=#{param1}
+    </update>
+
+    <update id="updateOrderRefundRefuse" parameterType="integer">
+        update orders,refund_apply
+        set is_refund_apply = 2
+        where orders.order_id=refund_apply.order_id and refund_id=#{refundId}
+    </update>
+
+    <select id="getSaltByMid" parameterType="integer" resultType="com.yc.eshop.common.entity.MerchantUser">
+        select salt,password
+        from merchant where merchant_id = #{mId}
+    </select>
+
+    <update id="updateMerchantPassword">
+        update merchant set password=#{param2} where merchant_id=#{param1}
+    </update>
+
+    <update id="updateMerchantNickname" parameterType="com.yc.eshop.common.entity.MerchantUser">
+        update merchant set nickname=#{nickname} where merchant_id=#{merchantId}
+    </update>
+
+    <select id="getStoreTotalOrderNum" parameterType="integer" resultType="integer">
+        select count(*) from orders,item,store
+        where orders.item_id=item.item_id and item.store_id=store.store_id
+        and store.merchant_id=#{merchantId}
+    </select>
+
+    <select id="getStoreOrderTotalItemNum" parameterType="integer" resultType="integer">
+        select sum(amount) from orders,item,store
+        where orders.item_id=item.item_id and item.store_id=store.store_id
+        and store.merchant_id=#{merchantId}
+    </select>
+
+    <select id="getDealMoney" parameterType="integer" resultType="integer">
+        select sum(totalPrice) from orders,item,store
+        where orders.item_id=item.item_id and item.store_id=store.store_id
+        and store.merchant_id=#{merchantId} and orders.state=4
+    </select>
+    
+    <select id="getPayNumEChartsData" parameterType="integer" resultType="com.yc.eshop.common.vo.EChartsSingleDataVO">
+        SELECT date as xAxis, IFNULL(tab.num, 0) as yAxis FROM (
+        SELECT
+        DATE_FORMAT(@cdate := date_add( @cdate, INTERVAL - 1 MONTH ),'%Y-%m') as date
+        FROM
+        (SELECT @cdate := date_add(CURDATE(), INTERVAL 1 MONTH )
+        FROM orders LIMIT 12)d
+        ORDER BY date
+        )date_c LEFT JOIN (
+        SELECT COUNT(*) as num, DATE_FORMAT(create_time,'%Y-%m') as t
+        FROM orders,item,store where orders.item_id=item.item_id and item.store_id=store.store_id and store.merchant_id=#{merchantId} GROUP BY DATE_FORMAT(create_time,'%Y-%m')
+        )tab ON t=date
+    </select>
+    
+    <select id="getRefundEChartsData" parameterType="integer" resultType="com.yc.eshop.common.vo.EChartsSingleDataVO">
+        SELECT date as xAxis, IFNULL(tab.num, 0) as yAxis FROM (
+        SELECT
+        DATE_FORMAT(@cdate := date_add( @cdate, INTERVAL - 1 MONTH ),'%Y-%m') as date
+        FROM
+        (SELECT @cdate := date_add(CURDATE(), INTERVAL 1 MONTH )
+        FROM orders LIMIT 12)d
+        ORDER BY date
+        )date_c LEFT JOIN (
+        SELECT COUNT(*) as num, DATE_FORMAT(create_time,'%Y-%m') as t
+        FROM orders,item,store where orders.item_id=item.item_id and item.store_id=store.store_id and store.merchant_id=#{merchantId} and orders.state=5 GROUP BY DATE_FORMAT(create_time,'%Y-%m')
+        )tab ON t=date
+    </select>
+    
+    
+    
+    
+</mapper>

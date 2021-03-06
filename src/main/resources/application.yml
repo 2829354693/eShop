@@ -24,6 +24,14 @@ mybatis-plus:
 
 user-token-expire: 12
 
+merchant-token-expire: 12
+
+admin-account: admin
+
+admin-password: 111
+
+admin-token-expire: 12
+
 logging:
   config: classpath:logback-spring.xml
 

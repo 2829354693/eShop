@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yc.eshop.admin.mapper.AdminMapper">
+
+    <select id="getShopApplyList" resultType="com.yc.eshop.common.entity.ShopApply">
+        select *
+        from shop_apply
+    </select>
+
+    <update id="updateShopApplyState" parameterType="integer">
+        update shop_apply
+        set state = #{param1}
+        where shop_apply_id = #{param2}
+    </update>
+
+    <select id="getApplyAccountById" parameterType="integer" resultType="string">
+        select apply_account
+        from shop_apply where shop_apply_id= #{id}
+    </select>
+
+    <insert id="insertMerchantUser" parameterType="com.yc.eshop.common.entity.MerchantUser" useGeneratedKeys="true" keyProperty="merchantId">
+        insert into merchant(account, password, salt, nickname) VALUE
+        (#{account},#{password},#{salt},#{nickname})
+    </insert>
+
+    <select id="getShopApplyById" parameterType="integer" resultType="com.yc.eshop.common.entity.ShopApply">
+        select * from shop_apply where shop_apply_id = #{id}
+    </select>
+
+    <insert id="insertStore" parameterType="com.yc.eshop.common.entity.Store">
+        insert into store (name, logo, merchant_id)
+        values (#{name},#{logo},#{merchantId})
+    </insert>
+</mapper>

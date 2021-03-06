@@ -3,10 +3,12 @@ package com.yc.eshop.visitor.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yc.eshop.common.dto.SearchItemParam;
 import com.yc.eshop.common.entity.Item;
+import com.yc.eshop.common.entity.ShopApply;
 import com.yc.eshop.common.entity.Store;
 import com.yc.eshop.common.entity.StoreCoupon;
 import com.yc.eshop.common.response.ApiResponse;
 import com.yc.eshop.common.response.ResponseCode;
+import com.yc.eshop.common.vo.ItemCommentVO;
 import com.yc.eshop.common.vo.ItemStoreVO;
 import com.yc.eshop.common.vo.StoreThreeItemsVO;
 import com.yc.eshop.visitor.mapper.IndexMapper;
@@ -16,11 +18,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -34,8 +35,13 @@ public class IndexServiceImpl extends ServiceImpl<IndexMapper, Item> implements 
     @Value("${picture-nginx-host}")
     private String pictureNginxHost;
 
+    @Value("${store-logo-save-path}")
+    private String storeLogoSavePath;
+
     @Autowired
     IndexMapper indexMapper;
+
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override
     public ApiResponse<List<Item>> indexHotItems() throws Exception {
@@ -155,6 +161,51 @@ public class IndexServiceImpl extends ServiceImpl<IndexMapper, Item> implements 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         storeCouponList.forEach(storeCoupon -> storeCoupon.setEndTimeStr(sdf.format(storeCoupon.getEndTime())));
         return ApiResponse.ok(storeCouponList, (long) storeCouponList.size());
+    }
+
+    @Override
+    public ApiResponse<?> getCommentByIid(Integer itemId) {
+        if (Objects.isNull(itemId)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "参数为空！");
+        }
+        List<ItemCommentVO> comments = indexMapper.getCommentByIid(itemId);
+        if (Objects.isNull(comments)) {
+            return ApiResponse.ok(Collections.emptyList());
+        }
+        for (ItemCommentVO commentVO : comments) {
+            if (!"".equals(commentVO.getHeadPic())) {
+                commentVO.setHeadPic(pictureNginxHost + commentVO.getHeadPic());
+            }
+            String[] pics = commentVO.getPicture().split(",");
+            for (int i = 0; i < pics.length; i++) {
+                pics[i] = pictureNginxHost + pics[i];
+            }
+            commentVO.setPictures(pics);
+            commentVO.setTimeStr(sdf.format(commentVO.getTime()));
+        }
+        return ApiResponse.ok(comments);
+    }
+
+    @Override
+    public ApiResponse<?> shopApplyCommit(ShopApply shopApply) throws IOException {
+        Integer count = indexMapper.getShopApplyCountByName(shopApply.getApplyShopName());
+        if (count == 1) {
+            return ApiResponse.ok("该店铺名称已存在！");
+        }
+        Integer count1 = indexMapper.getShopApplyCountByAccount(shopApply.getApplyAccount());
+        if (count1 == 1) {
+            return ApiResponse.ok("该账号已被占用！");
+        }
+        String originalFilename = shopApply.getLogoFile().getOriginalFilename();
+        if (Objects.isNull(originalFilename)) {
+            return ApiResponse.failure(ResponseCode.NOT_ACCEPTABLE, "上传头像失败！图片名为空！");
+        }
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+        String newPicName = df.format(new Date()) + "_" + shopApply.getApplyAccount().substring(5) + originalFilename.substring(originalFilename.lastIndexOf("."));
+        File newPic = new File(storeLogoSavePath + newPicName);
+        shopApply.getLogoFile().transferTo(newPic);
+        indexMapper.insertShopApply(shopApply.getApplyAccount(),shopApply.getApplyShopName(),shopApply.getApplyShopType(),"store_pic/"+newPicName,new Date());
+        return ApiResponse.ok();
     }
 
     private List<StoreThreeItemsVO> assembleStores(List<StoreThreeItemsVO> stores) {

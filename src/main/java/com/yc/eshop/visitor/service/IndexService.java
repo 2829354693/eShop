@@ -3,12 +3,13 @@ package com.yc.eshop.visitor.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.yc.eshop.common.dto.SearchItemParam;
 import com.yc.eshop.common.entity.Item;
+import com.yc.eshop.common.entity.ShopApply;
 import com.yc.eshop.common.entity.Store;
-import com.yc.eshop.common.entity.StoreCoupon;
 import com.yc.eshop.common.response.ApiResponse;
 import com.yc.eshop.common.vo.ItemStoreVO;
 import com.yc.eshop.common.vo.StoreThreeItemsVO;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -39,16 +40,7 @@ public interface IndexService extends IService<Item> {
 
     ApiResponse<?> getStoreCoupon(Integer storeId);
 
+    ApiResponse<?> getCommentByIid(Integer itemId);
 
-
-
-
-
-
-
-
-
-
-
-
+    ApiResponse<?> shopApplyCommit(ShopApply shopApply) throws IOException;
 }

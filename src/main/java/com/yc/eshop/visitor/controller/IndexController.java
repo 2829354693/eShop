@@ -2,6 +2,7 @@ package com.yc.eshop.visitor.controller;
 
 import com.yc.eshop.common.dto.SearchItemParam;
 import com.yc.eshop.common.entity.Item;
+import com.yc.eshop.common.entity.ShopApply;
 import com.yc.eshop.common.entity.Store;
 import com.yc.eshop.common.response.ApiResponse;
 import com.yc.eshop.common.vo.ItemStoreVO;
@@ -12,7 +13,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -94,9 +97,23 @@ public class IndexController {
         return indexService.getStoreCoupon(storeId);
     }
 
+    @ApiOperation("/获取商品页的评论")
+    @GetMapping("/getCommentByIid/{itemId}")
+    public ApiResponse<?> getCommentByIid(@PathVariable Integer itemId) {
+        return indexService.getCommentByIid(itemId);
+    }
 
-
-
+    @ApiOperation("店铺入驻申请提交")
+    @PostMapping("/shopApplyCommit")
+    public ApiResponse<?> shopApplyCommit(MultipartFile logo, String account,String type,String name) throws IOException {
+        ShopApply shopApply = ShopApply.builder()
+                .logoFile(logo)
+                .applyAccount(account)
+                .applyShopType(type)
+                .applyShopName(name)
+                .build();
+        return indexService.shopApplyCommit(shopApply);
+    }
 
 
 

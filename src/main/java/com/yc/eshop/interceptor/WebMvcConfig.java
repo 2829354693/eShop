@@ -17,7 +17,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/user/**")
                 .addPathPatterns("/order/**")
                 .addPathPatterns("/comment/**")
+                .addPathPatterns("/merchant/**")
+                .addPathPatterns("/admin/**")
                 .excludePathPatterns("/user/register")
-                .excludePathPatterns("/user/login");
+                .excludePathPatterns("/user/login")
+                .excludePathPatterns("/merchant/merchantLogin")
+                .excludePathPatterns("/merchant/merchantLogout")
+                .excludePathPatterns("/admin/adminLogin");
     }
 }

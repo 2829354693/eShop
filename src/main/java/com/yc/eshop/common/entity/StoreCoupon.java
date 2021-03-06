@@ -31,8 +31,12 @@ public class StoreCoupon implements Serializable {
 
     private String endTimeStr;
 
-    private String state;
+    private Boolean state;
 
     private Integer storeId;
+
+    private Date insertTime;
+
+    private String insertTimeStr;
 
 }

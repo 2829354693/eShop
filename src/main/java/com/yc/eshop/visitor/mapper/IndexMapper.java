@@ -3,12 +3,15 @@ package com.yc.eshop.visitor.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yc.eshop.common.dto.SearchItemParam;
 import com.yc.eshop.common.entity.Item;
+import com.yc.eshop.common.entity.ShopApply;
 import com.yc.eshop.common.entity.Store;
 import com.yc.eshop.common.entity.StoreCoupon;
+import com.yc.eshop.common.vo.ItemCommentVO;
 import com.yc.eshop.common.vo.ItemStoreVO;
 import com.yc.eshop.common.vo.StoreThreeItemsVO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,13 +49,13 @@ public interface IndexMapper extends BaseMapper<Item> {
 
     List<StoreCoupon> getStoreCoupon(Integer storeId);
 
+    List<ItemCommentVO> getCommentByIid(Integer itemId);
 
+    Integer getShopApplyCountByName(String name);
 
+    Integer getShopApplyCountByAccount(String account);
 
-
-
-
-
+    void insertShopApply(String account, String name, String type, String logo, Date time);
 
 
 
